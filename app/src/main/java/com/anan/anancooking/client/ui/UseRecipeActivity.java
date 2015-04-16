@@ -15,6 +15,7 @@ import android.widget.ShareActionProvider;
 
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.ui.viewadapters.CustomListViewAdapterUseRecipe;
+import com.anan.anancooking.client.ui.viewadapters.UseRecipeListViewAdapter;
 import com.anan.anancooking.model.Steps;
 
 
@@ -97,7 +98,7 @@ public class UseRecipeActivity extends Activity {
 
     private void setListView() {
         this.lv = (ListView) findViewById(R.id.listView_steps);
-        CustomListViewAdapterUseRecipe adapter = new CustomListViewAdapterUseRecipe(this, R.layout.list_item_single_step, Steps.asList());
+        UseRecipeListViewAdapter adapter = new UseRecipeListViewAdapter(this, R.layout.list_item_single_step, Steps.asList());
         this.lv.setAdapter(adapter);
         this.lv.addFooterView(getLayoutInflater().inflate(R.layout.rating_button, null));
 

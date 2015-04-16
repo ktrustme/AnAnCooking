@@ -21,15 +21,6 @@ import com.anan.anancooking.model.Recipes;
 
 import java.util.List;
 
-
-/**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * <p/>
- * to handle interaction events.
- * Use the {@link com.anan.anancooking.client.ui.RecommendationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RecommendationFragment extends Fragment{
 
 
@@ -90,7 +81,7 @@ public class RecommendationFragment extends Fragment{
          * Create an ArrayAdapter to contain the data for the ListView. Each item in the ListView
          * uses the system-defined simple_list_item_1 layout that contains one TextView.
          */
-        myListAdapter = new CustomListViewAdapter(
+        myListAdapter = new MainPageListViewAdapter(
                 getActivity(),
                 R.layout.list_item_briefintroduction,
                 Recipes.randomList(LIST_ITEM_COUNT));

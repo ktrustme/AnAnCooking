@@ -22,7 +22,7 @@ public class RecipeCreationActivity extends Activity {
     //ArrayAdapter<String> adapter;
     ArrayList<Step> list = new ArrayList<Step>();
     ArrayList<String> stringList = new ArrayList<>();
-    ListViewAdapter adapter = null;
+    CreateRecipeListViewAdapter adapter = null;
 
 
     @Override
@@ -34,7 +34,7 @@ public class RecipeCreationActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //instantiate custom adapter
-        this.adapter = new ListViewAdapter(list, this);
+        this.adapter = new CreateRecipeListViewAdapter(list, this);
         //ListViewAdapter adapter = new ListViewAdapter(list, this);
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);

@@ -21,13 +21,13 @@ import java.util.ArrayList;
 /**
  * Created by zihsiangsyu on 4/4/15.
  */
-public class ListViewAdapter extends BaseAdapter implements ListAdapter {
+public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Step> list = new ArrayList<Step>();
     //private ArrayList<String> descriptionList = new ArrayList<String>();
     private Context context;
 
 
-    public ListViewAdapter(ArrayList<Step> list, Context context) {
+    public CreateRecipeListViewAdapter(ArrayList<Step> list, Context context) {
         this.list = list;
         this.context = context;
     }
