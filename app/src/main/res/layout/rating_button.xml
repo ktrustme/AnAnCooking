@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            style="@style/TextRatingBar"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ratingbar1"
+            />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/login_button_height"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/gray"
+            android:progressTint="@color/primary_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:gravity="center_vertical">
+        <TextView
+            style="@style/TextRatingBar"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ratingbar2"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/login_button_height"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/gray"
+            android:progressTint="@color/primary_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/primary_color_transparant"
+            android:gravity="top">
+        <EditText
+            style="@style/TextBlackSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/rating_comments"
+            android:backgroundTint="@color/transparent"
+            />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        style="@style/TextPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_button_height"
+        android:background="@drawable/button_start_steps"
+        android:text="@string/submit_comment" />
+</LinearLayout>

@@ -1,0 +1,103 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!-- the theme applied to the application or activity -->
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light"></style>
+
+    <style name="CustomLoginTheme" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarStyle">@style/NoActionBar</item>
+    </style>
+
+    <style name="CustomMainPageTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item>
+        <item name="android:actionBarTabBarStyle">@style/MyActionBarTabBar</item>
+        <item name="android:actionBarTabTextStyle">@style/TextPrimary</item>
+        <item name="android:actionMenuTextColor">@color/text_white</item>
+    </style>
+
+    <style name="NoActionBar" parent="android:Theme.Holo.Light.NoActionBar.TranslucentDecor">
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="MyActionBar" parent="android:Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/primary_color</item>
+        <item name="android:titleTextStyle">@style/TextWhiteTitle</item>
+    </style>
+
+    <!--Tab styles-->
+    <style name="EmptyTab" parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@null</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="MyActionBarTabs" parent="android:Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/actionbar_tab_indicator</item>"
+    </style>
+
+    <style name="MyActionBarTabBar" parent="android:Widget.Holo.Light.ActionBar.TabBar">
+
+    </style>
+
+
+    <!--Text styles-->
+    <style name="TextWhite" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextWhiteTitle" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">22dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextRatingBar" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextBlack" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextBlackSetting" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextBlackSecondary" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_black_secondary</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextBlackHint" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_black_hint</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextPrimary" parent="android:TextAppearance">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextPrimarySecondary" parent="android:TextAppearance">
+        <item name="android:textColor">@color/primary_color_transparant</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextHintWhite" parent="android:TextAppearance">
+        <item name="android:textColor">@color/text_white_secondary</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

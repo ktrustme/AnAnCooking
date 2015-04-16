@@ -1,0 +1,233 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="com.anan.anancooking.client.ui.CreateRecipeBriefDescriptionActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="false"
+        android:background="@color/gray">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+            <!--name-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/row_separator"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+                <!--Title-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/padding_20dptext_row">
+                    <TextView
+                        style="@style/TextRatingBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/create_recipe_name" />
+                </LinearLayout>
+                <!-- Edit frame-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/primary_color_transparant"
+                    android:gravity="top">
+
+                    <EditText
+                        style="@style/TextBlackSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/transparent"
+                        android:hint="@string/create_recipe_name_hint" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/row_separator"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/padding_20dptext_row">
+
+                    <ImageView
+                        android:layout_width="@@dimen/little_icon_size"
+                        android:layout_height="@dimen/little_icon_size"
+                        android:background="@drawable/tomato" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="@string/ingredients_recipe_intro"
+                        android:textColor="@color/text_black"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/primary_color_transparant"
+                    android:gravity="top">
+
+                    <EditText
+                        style="@style/TextBlackSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/transparent"
+                        android:hint="@string/create_recipe_ingredients_hint" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/row_separator"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/padding_20dptext_row">
+
+                    <ImageView
+                        android:layout_width="@dimen/little_icon_size"
+                        android:layout_height="@dimen/little_icon_size"
+                        android:background="@drawable/ic_alarm_48px" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="@string/time_recipe_intro"
+                        android:textColor="@color/text_black"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <EditText
+                        android:id="@+id/edit_message2"
+                        android:layout_width="0dp"
+                        android:inputType="date"
+                        android:layout_height="wrap_content"
+                        android:autoText="true"
+                        android:singleLine="true"
+                        android:backgroundTint="#3F51B5"
+                        android:layout_weight="1" />
+                    <TextView
+                        style="@style/TextBlackSecondary"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="mins"/>
+                    <SeekBar
+                        android:id="@+id/seekBar1"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:max="1000"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/row_separator"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/padding_20dptext_row">
+
+                    <ImageView
+                        android:layout_width="@dimen/little_icon_size"
+                        android:layout_height="@dimen/little_icon_size"
+                        android:background="@drawable/pot" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="@string/description_intro_recipe"
+                        android:textColor="@color/text_black"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/primary_color_transparant"
+                    android:gravity="top">
+                    <EditText
+                        style="@style/TextBlackSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/transparent"
+                        android:hint="@string/create_recipe_descrption_hint" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <Button
+                    style="@style/TextPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_button_height"
+                    android:background="@drawable/button_start_steps"
+                    android:onClick="addSteps"
+                    android:text="Add More Details" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

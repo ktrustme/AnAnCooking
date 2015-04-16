@@ -1,0 +1,142 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+
+    tools:context=".client.ui.LogActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_color"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/icon_log"></LinearLayout>
+
+        <EditText
+            android:layout_width="@dimen/login_width"
+            android:layout_height="wrap_content"
+            android:autoText="true"
+            android:backgroundTint="@color/white"
+
+            android:hint="AnAn Username"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColorHint="@color/text_white_secondary" />
+
+        <EditText
+            android:layout_width="@dimen/login_width"
+            android:layout_height="wrap_content"
+            android:autoText="true"
+            android:backgroundTint="@color/white"
+            android:hint="Password"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColorHint="@color/text_white_secondary" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <Button
+                android:id="@+id/button_log_anan"
+                style="@style/TextWhite"
+                android:layout_width="@dimen/login_width"
+                android:layout_height="@dimen/login_button_height"
+                android:background="@drawable/button_anan_log"
+                android:clickable="true"
+                android:text="@string/anan_signup"
+                android:textColor="@color/primary_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/text_or_google_fb"
+                android:layout_width="@dimen/login_width"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:text="@string/text_or_google_fb"
+                style="@style/TextWhite"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <Button
+                android:id="@+id/button_log_google"
+                style="@style/TextWhite"
+                android:layout_width="@dimen/login_width_half"
+                android:layout_height="@dimen/login_button_height"
+                android:background="@drawable/button_google_log"
+                android:clickable="true"
+                android:text="@string/google_signup"
+                android:layout_marginRight="5dp"/>
+            <Button
+                android:id="@+id/button_log_facebook"
+                style="@style/TextWhite"
+                android:layout_width="@dimen/login_width_half"
+                android:layout_height="@dimen/login_button_height"
+                android:background="@drawable/button_facebook_log"
+                android:clickable="true"
+                android:text="@string/facebook_signup"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/text_signin"
+                android:layout_width="@dimen/login_width"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/already_have_account"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/text_skip"
+                android:layout_width="@dimen/login_width"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/skip"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="@dimen/login_width"
+            android:layout_height="120dp"></LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

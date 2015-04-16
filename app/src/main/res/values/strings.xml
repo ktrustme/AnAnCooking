@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">AnAnCooking</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="already_have_account">Already have an account? <u>Sign In!</u></string>
+    <string name="facebook_signup">Facebook</string>
+    <string name="google_signup">Google+</string>
+    <string name="anan_signup">Sign Up</string>
+    <string name="text_or_google_fb">Or Sign Up Via</string>
+    <string name="skip">Or actually you can <u>Skip This</u></string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_setting">Settings</string>
+    <string name="setting_sounds">Sounds</string>
+    <string name="setting_image_preview">Image Preview</string>
+    <string name="version_status">Version 1.0.0</string>
+    <string name="version_status2">Release Date: 03/10/2015</string>
+    <string name="version_setting">Version Status</string>
+    <string name="title_activity_use_recipe">UseRecipeActivity</string>
+    <string name="title_activity_recipe_intro">RecipeIntroActivity</string>
+    <string name="ingredients_recipe_intro">Ingredients</string>
+    <string name="RecipeIntroActivityLabel">Recipe Intro</string>
+    <string name="time_recipe_intro">Time</string>
+    <string name="description_intro_recipe">Description</string>
+    <string name="start_steps_button">Let\'s Start</string>
+    <string name="ratingbar1">Yummy</string>
+    <string name="ratingbar2">Easy</string>
+    <string name="rating_comments">Wanna Say Something?</string>
+    <string name="submit_comment">Enjoy Your Dishes :)</string>
+    <string name="title_activity_create_recipe_brief_description">
+        CreateRecipeBriefDescriptionActivity
+    </string>
+    <string name="create_recipe_name_hint">Give a cool name!</string>
+    <string name="create_recipe_ingredients">Ingredients</string>
+    <string name="create_recipe_name">Recipe Name</string>
+    <string name="create_recipe_ingredients_hint">Do you like onion?</string>
+    <string name="create_recipe_time">Time</string>
+    <string name="create_recipe_descrption_hint">Say something about the recipe!</string>
+
+    <string name="title_activity_image_picker">ImagePickerActivity</string>
+</resources>

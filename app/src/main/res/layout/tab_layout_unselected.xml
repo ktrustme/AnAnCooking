@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/tab_unselected" >
+    <TextView
+        style="@style/TextPrimarySecondary"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Test Tab"
+        android:textColor="@color/primary_color_transparant"
+        android:gravity="center"/>
+</RelativeLayout>

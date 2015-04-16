@@ -1,0 +1,187 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id = "@+id/recipe_intro_activity"
+    tools:context="com.anan.anancooking.client.ui.RecipeIntroActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="false"
+        android:background="@color/gray">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/row_separator"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/padding_20dptext_row">
+
+                    <ImageView
+                        android:layout_width="@@dimen/little_icon_size"
+                        android:layout_height="@dimen/little_icon_size"
+                        android:background="@drawable/tomato" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="@string/ingredients_recipe_intro"
+                        android:textColor="@color/text_black"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:padding="@dimen/padding_20dptext_row">
+
+                    <TextView
+                        android:id="@+id/text_view_ingredients_recipe_intro"
+                        style="@style/TextBlackSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Some Ingredients..." />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/row_separator"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/padding_20dptext_row">
+
+                    <ImageView
+                        android:layout_width="@dimen/little_icon_size"
+                        android:layout_height="@dimen/little_icon_size"
+                        android:background="@drawable/ic_alarm_48px" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="@string/time_recipe_intro"
+                        android:textColor="@color/text_black"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:padding="@dimen/padding_20dptext_row">
+
+                    <TextView
+                        android:id="@+id/text_view_time_recipe_intro"
+                        style="@style/TextBlackSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="5 Mins" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/row_separator"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/padding_20dptext_row">
+
+                    <ImageView
+                        android:layout_width="@dimen/little_icon_size"
+                        android:layout_height="@dimen/little_icon_size"
+                        android:background="@drawable/pot" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="@string/description_intro_recipe"
+                        android:textColor="@color/text_black"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:padding="@dimen/padding_20dptext_row">
+
+                    <TextView
+                        android:id="@+id/text_view_description_recipe_intro"
+                        style="@style/TextBlackSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="5 Mins" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:background="@color/white"
+                android:padding="@dimen/padding_20dptext_row"
+                android:layout_marginBottom="@dimen/row_separator">
+
+                <ImageView
+                    android:id="@+id/image_view_preview_recipe_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_menu_rotate"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_button_height"
+                    android:background="@drawable/button_start_steps"
+                    style="@style/TextPrimary"
+                    android:text="@string/start_steps_button"
+                    android:onClick="startSteps" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

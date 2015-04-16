@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/addBtn"
+        android:text="Add New Item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addItems"
+        android:background="@drawable/custom_button"
+        android:paddingTop="16dp"
+        android:layout_below="@android:id/list"
+        />
+
+    <Button
+        android:id="@+id/save"
+        android:text="Save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="save"
+        android:background="@drawable/custom_button"
+        android:paddingTop="16dp"
+
+        />
+
+    <!--Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@drawable/custom_button"
+        android:background="@drawable/custom_button"
+        android:onClick="chooseImage"
+        android:text="chooseImage"
+        /-->
+
+
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="true"
+        android:paddingTop="16dp"
+        android:layout_below="@id/save"
+        />
+
+
+
+
+    <!--TableLayout
+        android:layout_marginTop="3dip"
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight=".25" >
+
+        <TableRow
+            android:id="@+id/tableRow_PurchasePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:lines="2"
+                android:id="@+id/purchase_price_head"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:layout_width="0dip"
+                android:text="Purchase price: "/>
+            <EditText
+                android:inputType="number"
+                android:id="@+id/purchase_price"
+                android:lines="2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="no"
+                android:text="300000"
+                />
+            <TextView
+                android:id="@+id/purchase_price_tail"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:layout_width="0dip"
+                android:text="$"/>
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/tableRow_Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:lines="2"
+                android:id="@+id/first_payment_date_head"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:layout_width="0dip"
+
+                android:text="First payment date : "/>
+
+            <Button
+                android:theme="@style/MyActionBar"
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="0dp"
+                android:onClick="setDate"
+                android:text="setDate" />
+
+            <TextView
+                android:id="@+id/dateView"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+
+                android:text="       "/>
+        </TableRow>
+
+        <TableRow>
+
+
+        </TableRow>
+
+
+
+
+    </TableLayout-->
+
+
+
+
+
+</LinearLayout>

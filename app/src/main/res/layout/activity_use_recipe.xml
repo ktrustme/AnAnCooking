@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.anan.anancooking.client.ui.UseRecipeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height_half"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="moveUp"
+            android:gravity="center"
+            android:background="@drawable/sign_out">
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_arrow_up">
+                </LinearLayout>
+            </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView_steps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height_half"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="moveDown"
+            android:background="@drawable/sign_out"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_arrow_down">
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
