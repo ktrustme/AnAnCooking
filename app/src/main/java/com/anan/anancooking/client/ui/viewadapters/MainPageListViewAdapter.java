@@ -60,7 +60,7 @@ public class MainPageListViewAdapter extends ArrayAdapter<RecipePreviewInterface
         holder.txtTitle.setText(rowItem.getName());
         holder.txtDescription.setText(rowItem.getIngredients());
         //holder.imageView.setImageDrawable(new BitmapDrawable(BitmapFactory.decodeByteArray(rowItem.getPreviewByteCode(), 0, rowItem.getPreviewByteCode().length)));
-
+        holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
 
         return convertView;
     }

@@ -13,20 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
-import com.anan.anancooking.model.RecipeStep;
+
+import com.anan.anancooking.model.StepInterface;
 
 import java.util.ArrayList;
 
 /**
  * Created by kuoxin on 4/4/15.
  */
-public class CustomListViewAdapterUseRecipe extends ArrayAdapter<RecipeStep> {
+public class CustomListViewAdapterUseRecipe extends ArrayAdapter<StepInterface> {
 
 
     Context context;
 
     public CustomListViewAdapterUseRecipe(Context context, int resourceId, //resourceId=your layout
-                                          ArrayList<RecipeStep> items) {
+                                          ArrayList<StepInterface> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -42,7 +43,7 @@ public class CustomListViewAdapterUseRecipe extends ArrayAdapter<RecipeStep> {
 
         ViewHolder holder = null;
 
-        RecipeStep rowItem = getItem(position);
+        StepInterface rowItem = getItem(position);
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -59,12 +60,12 @@ public class CustomListViewAdapterUseRecipe extends ArrayAdapter<RecipeStep> {
         //if (holder.imageView.getDrawable() == null) {
         DisplayMetrics dm = new DisplayMetrics();
         int width = parent.getMeasuredWidth();
-        holder.txtTitle.setText(rowItem.getTitle());
-        holder.txtDescription.setText(rowItem.getDesc());
-        new Handler().post(new testRunnable(holder, rowItem.getImageId()));
-        //holder.imageView.setImageResource(rowItem.getImageId());
+        holder.txtTitle.setText(rowItem.getName());
+        holder.txtDescription.setText(rowItem.getDescription());
+        //new Handler().post(new testRunnable(holder, rowItem.getImageByteCode()));
+
         holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(width, width * 3 / 4));
-        //}
+
 
         return convertView;
     }

@@ -7,9 +7,11 @@ import android.graphics.drawable.BitmapDrawable;
  * Created by kuoxin on 4/13/15.
  */
 public interface StepInterface {
-    String getTitle();
+    void setName(String name);
+    void setDescription(String description);
+    void setImageByteCode(byte[] imageByteCode);
+    String getName();
     String getDescription();
-    Bitmap getImage();
-    BitmapDrawable getImageDrawable();
+    byte[] getImageByteCode();
 
 }

@@ -20,7 +20,7 @@ public class RecipePreviews {
             new RecipePreviewImplementation().setName("Fried Rice").setTime(10).setIngredients("Rice;Egg;Pepper;Onion"),
             new RecipePreviewImplementation().setName("Spanish Pella").setTime(20).setIngredients("Rice;Chicken;Egg"),
             new RecipePreviewImplementation().setName("Chicken Leg").setTime(15).setIngredients("Chicken Leg;Egg;Pepper"),
-            new RecipePreviewImplementation().setName("Lamian").setTime(10).setIngredients("Noodles;Tomato;Egg")
+            new RecipePreviewImplementation().setName("Lamian").setTime(10).setIngredients("Noodles;Tomato;Egg"),
     };
 
     {

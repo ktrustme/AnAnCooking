@@ -97,7 +97,7 @@ public class RecommendationFragment extends Fragment {
                 initiateRefresh();
             }
         });
-        initiateRefresh();
+
         // END_INCLUDE (setup_refreshlistener)
     }
 // END_INCLUDE (setup_views)

@@ -13,20 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
-import com.anan.anancooking.model.RecipeStep;
+
+import com.anan.anancooking.model.StepInterface;
 
 import java.util.ArrayList;
 
 /**
  * Created by kuoxin on 4/4/15.
  */
-public class UseRecipeListViewAdapter extends ArrayAdapter<RecipeStep> {
+public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
 
 
     Context context;
 
     public UseRecipeListViewAdapter(Context context, int resourceId, //resourceId=your layout
-                                    ArrayList<RecipeStep> items) {
+                                    ArrayList<StepInterface> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -42,7 +43,7 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<RecipeStep> {
 
         ViewHolder holder = null;
 
-        RecipeStep rowItem = getItem(position);
+        StepInterface rowItem = getItem(position);
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -59,13 +60,11 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<RecipeStep> {
         //if (holder.imageView.getDrawable() == null) {
         DisplayMetrics dm = new DisplayMetrics();
         int width = parent.getMeasuredWidth();
-        holder.txtTitle.setText(rowItem.getTitle());
-        holder.txtDescription.setText(rowItem.getDesc());
-        new Handler().post(new testRunnable(holder, rowItem.getImageId()));
-        //holder.imageView.setImageResource(rowItem.getImageId());
+        holder.txtDescription.setText(rowItem.getDescription());
+        holder.txtTitle.setText(rowItem.getName());
+        //new Handler().post(new testRunnable(holder, rowItem.getImageByteCode()));
+        holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
         holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(width, width * 3 / 4));
-        //}
-
         return convertView;
     }
 
@@ -80,7 +79,7 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<RecipeStep> {
 
         @Override
         public void run() {
-            //vh.imageView.setImageResource(sourceId);
+            vh.imageView.setImageResource(R.drawable.ic_menu_rotate);
         }
     }
 }
