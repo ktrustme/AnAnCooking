@@ -2,70 +2,79 @@ package com.anan.anancooking.model;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 
 import com.anan.anancooking.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by kuoxin on 4/4/15.
  */
-public class RecipeImplementation implements RecipeInterface{
+public class RecipeImplementation implements RecipeInterface {
+
     String ingredients = null;
     int time = 0;
     String description = null;
-    RecipeStep[] steps= new RecipeStep[10];
-    BitmapDrawable preview = null;
+    ArrayList<Step> steps = new ArrayList<Step>();
+    byte[] previewByteCode;
 
-
-
-    public RecipeInterface setPreview(BitmapDrawable preview) {
-        this.preview = preview;
-        return this;
+    @Override
+    public RecipeInterface setSteps(ArrayList<Step> steps) {
+        return null;
     }
 
+    @Override
     public RecipeInterface setDescription(String description) {
         this.description = description;
         return this;
     }
 
+    @Override
+    public RecipeInterface setPreviewByteCode(byte[] previewByteCode) {
+        this.previewByteCode = previewByteCode;
+        return this;
+    }
+
+
+    @Override
     public RecipeInterface setTime(int time) {
         this.time = time;
         return this;
     }
 
+    @Override
     public RecipeInterface setIngredients(String ingredients) {
         this.ingredients = ingredients;
         return this;
     }
 
-
-
-
     @Override
-    public RecipeStep[] getSteps() {
-        return steps;
+    public java.util.ArrayList<Step> getSteps() {
+        return this.steps;
     }
 
     @Override
     public String getIngredients() {
-        return ingredients;
+        return this.ingredients;
     }
 
     @Override
     public int getTime() {
-        return time;
+        return this.time;
     }
-
 
     @Override
     public String getDescription() {
-        return null;
+        return this.description;
     }
 
     @Override
-    public BitmapDrawable getPreview() {
-        return preview;
+    public byte[] getPreviewByteCode() {
+        return this.previewByteCode;
     }
+
 }

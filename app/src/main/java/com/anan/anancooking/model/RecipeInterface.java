@@ -1,5 +1,6 @@
 package com.anan.anancooking.model;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
 
@@ -14,11 +15,11 @@ public interface RecipeInterface {
     String getIngredients();
     int getTime();
     String getDescription();
-    BitmapDrawable getPreview();
+    byte[] getPreviewByteCode();
 
     RecipeInterface setTime(int time);
     RecipeInterface setIngredients(String ingredients);
     RecipeInterface setDescription(String description);
-    RecipeInterface setPreview(BitmapDrawable preview);
+    RecipeInterface setPreviewByteCode(byte[] previewByteCode);
     RecipeInterface setSteps(ArrayList<Step> steps);
 }

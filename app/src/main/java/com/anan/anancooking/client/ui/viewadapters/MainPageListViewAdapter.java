@@ -2,6 +2,8 @@ package com.anan.anancooking.client.ui.viewadapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
-import com.anan.anancooking.model.BriefRecipe;
+import com.anan.anancooking.model.RecipePreviewInterface;
 
 import java.util.ArrayList;
 
 /**
  * Created by kuoxin on 4/4/15.
  */
-public class MainPageListViewAdapter extends ArrayAdapter<BriefRecipe> {
+public class MainPageListViewAdapter extends ArrayAdapter<RecipePreviewInterface> {
 
 
     Context context;
 
     public MainPageListViewAdapter(Context context, int resourceId, //resourceId=your layout
-                                   ArrayList<BriefRecipe> items) {
+                                   ArrayList<RecipePreviewInterface> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -40,7 +42,7 @@ public class MainPageListViewAdapter extends ArrayAdapter<BriefRecipe> {
 
         ViewHolder holder = null;
 
-        BriefRecipe rowItem = getItem(position);
+        RecipePreviewInterface rowItem = getItem(position);
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
@@ -53,14 +55,12 @@ public class MainPageListViewAdapter extends ArrayAdapter<BriefRecipe> {
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.txtTitle.setText(rowItem.getTitle());
-        holder.txtDescription.setText(rowItem.getDesc());
-        //holder.imageView.setImageResource(rowItem.getImageId());
-        //if (holder.imageView.getDrawable() == null) {
-            new Handler().post(new testRunnable(holder, rowItem.getImageId()));
-            //holder.imageView.setImageResource(rowItem.getImageId());
-            //holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(width, width * 3 / 4));
-        //}
+
+        //the following line should be performed in a AsynTask
+        holder.txtTitle.setText(rowItem.getName());
+        holder.txtDescription.setText(rowItem.getIngredients());
+        //holder.imageView.setImageDrawable(new BitmapDrawable(BitmapFactory.decodeByteArray(rowItem.getPreviewByteCode(), 0, rowItem.getPreviewByteCode().length)));
+
 
         return convertView;
     }
