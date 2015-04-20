@@ -21,7 +21,7 @@
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/first_column"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:orientation="vertical">
@@ -49,14 +49,15 @@
                 android:text="Image" />
 
             <Button
-                android:id="@+id/save_step"
+                android:id="@+id/update_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="left"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/custom_button"
-                android:text="Save step" />
+                android:onClick="openUpdateStepDialog"
+                android:text="@string/create_step_update_step" />
 
         </LinearLayout>
 
@@ -101,10 +102,10 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/custom_button"
-            android:text="Delete" />
+            android:text="@string/create_step_delete_step" />
 
         <Button
-            android:id="@+id/add_btn"
+            android:id="@+id/save_recipe_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -112,7 +113,7 @@
             android:layout_toRightOf="@id/delete_btn"
             android:layout_weight="1"
             android:background="@drawable/custom_button"
-            android:text="Add" />
+            android:text="@string/create_step_insert_step" />
 
 
     </LinearLayout>

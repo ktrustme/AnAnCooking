@@ -39,4 +39,15 @@
     <string name="create_recipe_descrption_hint">Say something about the recipe!</string>
 
     <string name="title_activity_image_picker">ImagePickerActivity</string>
+
+    <!-- Creation Step Part.  2014/04/19 by Siang -->
+    <string name="create_step_add_step">Add Step</string>
+    <string name="create_step_description">Description</string>
+    <string name="create_step_save">Save</string>
+    <string name="create_step_insert_step">Insert Step</string>
+    <string name="create_step_update_step">Update</string>
+    <string name="create_step_delete_step">Delete</string>
+
+
+
 </resources>

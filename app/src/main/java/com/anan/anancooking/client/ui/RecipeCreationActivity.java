@@ -6,37 +6,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.app.*;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.model.RecipeCreateListHelper;
 import com.anan.anancooking.model.Step;
 import com.anan.anancooking.client.ui.viewadapters.*;
 
 import java.util.ArrayList;
 
 
-public class RecipeCreationActivity extends Activity {
+public class RecipeCreationActivity extends Activity
+        implements AddStepDialog.OnAddStepConfirmedListener, UpdateStepDialog.OnUpdateConfirmedListener,InsertionStepDialog.OnInsertionConfirmedListener {
     private int stepCounter=1;
     private final static int MAXIMUM_STEP = 20;
-    //ArrayAdapter<String> adapter;
-    ArrayList<Step> list = new ArrayList<Step>();
-    ArrayList<String> stringList = new ArrayList<>();
+    private ListView listView = null;
     CreateRecipeListViewAdapter adapter = null;
-
+    ArrayList<Step> steps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        RecipeCreateListHelper rclh = new RecipeCreateListHelper();
+        steps = rclh.getArrayList();
+
         super.onCreate(savedInstanceState);
-        //adapter = new ArrayAdapter<>(this,
-        //        android.R.layout.simple_list_item_1, stringList);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create_recipe);
 
-        //instantiate custom adapter
-        this.adapter = new CreateRecipeListViewAdapter(list, this);
-        //ListViewAdapter adapter = new ListViewAdapter(list, this);
-        ListView listView = (ListView) findViewById(android.R.id.list);
+        this.adapter = new CreateRecipeListViewAdapter(steps, this);
+
+        listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
 
     }
@@ -68,7 +67,12 @@ public class RecipeCreationActivity extends Activity {
 
 
 
-    public void addItems(View view){
+    public void openAddDialog(View view){
+        DialogFragment newFragment = AddStepDialog.newInstance();
+        newFragment.show(getFragmentManager(), "dialog");
+
+
+        /*
         if(stepCounter<=MAXIMUM_STEP) {
             //ListViewAdapter adapter = new ListViewAdapter(list, this);
             ListView listView = (ListView) findViewById(android.R.id.list);
@@ -82,6 +86,7 @@ public class RecipeCreationActivity extends Activity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Error").setMessage(sb.toString()).show();
         }
+        */
 
     }
     /*
@@ -91,10 +96,52 @@ public class RecipeCreationActivity extends Activity {
         return;
     }
     */
+
+    public void openUpdateStepDialog(Step step, int position) {
+        Bundle args = new Bundle();
+        args.putString("edit_text_update_description", step.getDescription());
+        args.putString("text_view_update_step_position",position+"");
+        UpdateStepDialog updateStepDialog = UpdateStepDialog.newInstance(step.getDescription(),position);
+        updateStepDialog.setArguments(args);
+        updateStepDialog.show(getFragmentManager(), "update_dialog");
+    }
+
+    public void openInsertionStepDialog(Step step, int position){
+        Bundle args = new Bundle();
+        args.putString("text_view_insert_position", position+"" );
+        InsertionStepDialog insertionStepDialog = InsertionStepDialog.newInstance(position);
+        insertionStepDialog.setArguments(args);
+        insertionStepDialog.show(getFragmentManager(), "update_dialog");
+    }
+
     public void save(View view){
 
     }
 
+    private void refreshListView() {
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void addStep(Step step) {
+        steps.add(step);
+        refreshListView();
+        listView.setSelection(listView.getAdapter().getCount() - 1);
+        return;
+    }
 
 
+    public void updateStep(Step step, int position) {
+        steps.get(position).setDescription(step.getDescription());
+        refreshListView();
+        return;
+    }
+
+    @Override
+    public void insertStep(Step step, int position) {
+        System.out.println("insertStep position = "+position);
+        steps.add(position+1,step);
+        refreshListView();
+        return;
+    }
 }

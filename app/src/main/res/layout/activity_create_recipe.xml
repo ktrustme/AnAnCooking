@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/addBtn"
+        android:text="@string/create_step_add_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openAddDialog"
+        android:background="@drawable/custom_button"
+        android:paddingTop="16dp"
+        android:layout_below="@android:id/list"
+        />
+
+    <Button
+        android:id="@+id/save_recipe_btn"
+        android:text="Save Recipe / No function now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick=""
+        android:background="@drawable/custom_button"
+        android:paddingTop="16dp"
+
+        />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="true"
+        android:paddingTop="16dp"
+        android:layout_below="@id/save_recipe_btn"
+        />
+
+</LinearLayout>

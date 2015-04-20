@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.ui.ImagePickerActivity;
+import com.anan.anancooking.client.ui.RecipeCreationActivity;
 import com.anan.anancooking.model.Step;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
  */
 public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Step> list = new ArrayList<Step>();
-    //private ArrayList<String> descriptionList = new ArrayList<String>();
     private Context context;
 
 
@@ -90,9 +90,9 @@ public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdap
 
         //Handle buttons and add onClickListeners
         Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
-        Button addBtn = (Button) view.findViewById(R.id.add_btn);
+        Button insertBtn = (Button) view.findViewById(R.id.save_recipe_btn);
         Button imgPickBtn = (Button) view.findViewById(R.id.image_pick_btn);
-        Button saveStep = (Button) view.findViewById(R.id.save_step);
+        Button updateStep = (Button) view.findViewById(R.id.update_btn);
 
 
 
@@ -108,13 +108,12 @@ public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdap
             }
         });
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Step step = new Step();
-                list.add(position, step);
-                //descriptionList.add(editText.getText().toString());
-                notifyDataSetChanged();
+                //System.out.println("insertBtn.setOnClickListener position = "+position);
+                ((RecipeCreationActivity)v.getContext()).openInsertionStepDialog(step, position);
             }
 
 
@@ -129,14 +128,13 @@ public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdap
             }
         });
 
-        saveStep.setOnClickListener(new View.OnClickListener() {
+        updateStep.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View v) {
-                EditText et = (EditText) v.getRootView().findViewById(R.id.description_list_element);
-
-                String temp = et.getText().toString();
-                list.get(position).setDescription(temp);
+            Step step = list.get(position);
+            System.out.println("Update position:" + position);
+            ((RecipeCreationActivity)v.getContext()).openUpdateStepDialog(step, position);
             }
         });
 
@@ -148,16 +146,13 @@ public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdap
 
         //viewHolder = (ViewHolder) view.getTag();
         TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
-        int dif = getCount() - position;
-        listItemText.setText("Step" + dif);
+        //int dif = getCount() - position;
+        StringBuilder titleSB = new StringBuilder("Step");
+        listItemText.setText((titleSB.append(position+1)).toString());
 
         EditText editText = (EditText) view.findViewById(R.id.description_list_element);
         editText.setText(list.get(position).getDescription());
 
-        //vh.editText.setText(list.get(position).getDescription());
-        //vh.imageView.setImageBitmap(list.get(position).getImageView());
-        //view.setTag(vh);
-        //view.setTag(viewHolder);
         return view;
 
     }
@@ -167,6 +162,7 @@ public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdap
         private EditText editText;
         private ImageView imageView;
     }
+
 
 
 }
