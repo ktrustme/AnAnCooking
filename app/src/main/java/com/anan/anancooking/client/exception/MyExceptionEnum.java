@@ -16,12 +16,9 @@ package com.anan.anancooking.client.exception;
  * Self-defined enumeration type, containing error code and error message, and corresponding setter and getter.
  */
 public enum MyExceptionEnum implements ExceptionEnumInterface{
-	NO_MODEL_NAME(1, "No model name specified. Call fix1()"),
-	WRONG_INPUT_FORMAT(2, "Wrong input format! Call fix2()."),
-	NO_OPTION_SET_DATA(4, "No optionset info specified! Call fix4()."),
-	NO_OPTION_DATA(5,"No option info specified! Call fix5()."),
-	NO_PRICING_INFO(3, "No pricing infomation! Call fix3()."),
-	CANT_FIND_OPTIONSET(6, "Can't find specified option set! Please re-check the name!");
+	EMPTY_INPUT(1, ">_< Input cannot be empty."),
+	NO_DISK_SPACE(2, "X_X Opps! No enough disk space!"),
+    NETWORK_DISCONNECTION(3, "X_X No network connection. Please check your setting.");
 	
 	
 	public int code;

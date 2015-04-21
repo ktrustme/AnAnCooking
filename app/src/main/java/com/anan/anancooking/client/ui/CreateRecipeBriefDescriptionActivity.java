@@ -13,6 +13,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 import com.anan.anancooking.client.ui.*;
 
 public class CreateRecipeBriefDescriptionActivity extends Activity implements SeekBar.OnSeekBarChangeListener{
@@ -55,6 +56,7 @@ public class CreateRecipeBriefDescriptionActivity extends Activity implements Se
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe_brief_description);
         setSeekBar();
+        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
 

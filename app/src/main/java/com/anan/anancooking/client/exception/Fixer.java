@@ -19,9 +19,9 @@ import java.util.logging.Logger;
  * But current what those method do is just record some meesage into
  * the log file.
  */
-public class Fix5 {
+public class Fixer {
 	private String logfile;
-	public Fix5(String logfile){
+	public Fixer(){
 		this.logfile = logfile;
 	}
 	public void fix1(){

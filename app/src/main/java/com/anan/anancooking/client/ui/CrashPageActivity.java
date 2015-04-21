@@ -1,29 +1,26 @@
 package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.anan.anancooking.R;
-import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 
-
-public class SettingActivity extends Activity {
+public class CrashPageActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+        setContentView(R.layout.activity_crash_page);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_setting, menu);
+        getMenuInflater().inflate(R.menu.menu_crash_page, menu);
         return true;
     }
 

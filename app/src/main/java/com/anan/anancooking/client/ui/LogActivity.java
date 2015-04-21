@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 import com.anan.anancooking.client.ui.listeners.AnAnLogButtonListener;
 import com.anan.anancooking.client.ui.listeners.FacebookLogButtonListener;
 import com.anan.anancooking.client.ui.listeners.GoogleLogButtonListener;
@@ -31,7 +32,7 @@ public class LogActivity extends Activity {
         setStatusBar();
         setProgressCircle();
         setButton();
-
+        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
     /**

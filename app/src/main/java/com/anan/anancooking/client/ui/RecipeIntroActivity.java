@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 import com.anan.anancooking.client.ui.contentloader.RecipeBriefDescriptionLoader;
 
 
@@ -27,6 +28,7 @@ public class RecipeIntroActivity extends Activity {
         setTimeText();
         setPreviewImage();
         new RecipeBriefDescriptionLoader(this).execute(recipeId);
+        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
     private void setIngredientsText() {

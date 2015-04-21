@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/exception_dialog_message"
+        style="@style/TextBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sorry, seems somthing goes wrong. You can upload the error report to help us fix that" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_margin="5dp"
+            style="@style/TextWhite"
+            android:layout_width="150dp"
+            android:layout_weight="1"
+            android:text="Exit"
+            android:background="@drawable/custom_button"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_margin="5dp"
+            style="@style/TextWhite"
+            android:layout_width="150dp"
+            android:layout_weight="1"
+            android:text="Report Error"
+            android:background="@drawable/custom_button"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

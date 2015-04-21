@@ -47,7 +47,10 @@
     <string name="create_step_insert_step">Insert Step</string>
     <string name="create_step_update_step">Update</string>
     <string name="create_step_delete_step">Delete</string>
-
+    <string name="title_activity_crash_page">Opps... X_X</string>
+    <string name="uncaught_exception_message">Somthing goes wrong. You can upload the error report to help us fix that</string>
+    <string name="report_error_button">Report Error</string>
+    <string name="exit_button">Exit</string>
 
 
 </resources>

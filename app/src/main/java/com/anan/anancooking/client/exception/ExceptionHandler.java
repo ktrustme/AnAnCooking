@@ -47,24 +47,24 @@ public class ExceptionHandler implements ExceptionHandlerInterface{
 	
 	@Override
 	public void fix(MyExceptionEnum exenum) {
-		Fix5 f5 = new Fix5(logfile);
+		Fixer fixer = new Fixer();
 		String message = exenum.getMessage();
 		int errno = exenum.getCode();
 		//java.util.Date date= new java.util.Date();
 		message = "Error detected: " + message;
 		logger.warning(message);
 		switch(errno){
-			case 1: f5.fix1();
+			case 1: fixer.fix1();
 					break;
-			case 2: f5.fix2();
+			case 2: fixer.fix2();
 					break;
-			case 3: f5.fix3();
+			case 3: fixer.fix3();
 					break;
-			case 4: f5.fix4();
+			case 4: fixer.fix4();
 					break;
-			case 5: f5.fix5();
+			case 5: fixer.fix5();
 					break;
-			case 6: f5.fix6();
+			case 6: fixer.fix6();
 			default: message = "Oh no! An exception occured but I don't know how to handle this!";
 		}
 	

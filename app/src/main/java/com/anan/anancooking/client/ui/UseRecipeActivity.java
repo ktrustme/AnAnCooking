@@ -14,6 +14,7 @@ import android.widget.ShareActionProvider;
 
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 import com.anan.anancooking.client.ui.viewadapters.CustomListViewAdapterUseRecipe;
 import com.anan.anancooking.client.ui.viewadapters.UseRecipeListViewAdapter;
 import com.anan.anancooking.model.Steps;
@@ -35,7 +36,7 @@ public class UseRecipeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_recipe);
         setListView();
-
+        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
     private void setShareIntent(Intent shareIntent) {

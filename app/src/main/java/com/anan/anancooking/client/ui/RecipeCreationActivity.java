@@ -9,6 +9,7 @@ import android.view.View;
 import android.app.*;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 import com.anan.anancooking.model.RecipeCreateListHelper;
 import com.anan.anancooking.model.Step;
 import com.anan.anancooking.client.ui.viewadapters.*;
@@ -37,6 +38,7 @@ public class RecipeCreationActivity extends Activity
 
         listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
+        //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
 
     }
 
