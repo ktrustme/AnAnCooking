@@ -4,15 +4,25 @@ import android.widget.*;
  * Created by zihsiangsyu on 4/4/15.
  */
 public class Step {
+    private String recipeID;
     private int stepID;
     private String description;
-    private ImageView imageView;
+    private byte[] image;
+//    private ImageView imageView;
+//
+//
+//    public Step(String description, ImageView imageView, int stepID){
+//        this.stepID = stepID;
+//        this.description = description;
+//        this.imageView = imageView;
+//    }
 
 
-    public Step(String description, ImageView imageView, int stepID){
+    public Step(String recipeID, int stepID, String des, byte[] image) {
+        this.recipeID = recipeID;
         this.stepID = stepID;
-        this.description = description;
-        this.imageView = imageView;
+        this.image = image;
+        this.description = des;
     }
 
     public Step(){
@@ -27,17 +37,37 @@ public class Step {
         this.description = description;
     }
 
-    public void setImageView(ImageView imageView){
-        this.imageView = imageView;
+    public void setBytes(byte[] image) {
+        this.image = image;
     }
 
-    public String getDescription(){
+    public void setRecipeID(String id) {
+        this.recipeID = id;
+    }
+
+//    public void setImageView(ImageView imageView){
+//        this.imageView = imageView;
+//    }
+//
+//    public String getDescription(){
+//        return this.description;
+//    }
+//
+//    public ImageView getImageView(){
+//        return this.imageView;
+//    }
+
+    public String getDescription() {
         return this.description;
     }
 
-    public ImageView getImageView(){
-        return this.imageView;
+    public byte[] getBytes() {
+        return this.image;
     }
 
+    public String getRecipeID() {
+        return this.recipeID;
+    }
     public int getStepID(){ return this.stepID;}
 }
+
