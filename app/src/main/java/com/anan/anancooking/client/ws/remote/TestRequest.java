@@ -16,7 +16,8 @@ public class TestRequest extends JsonObjectRequest {
 
     public TestRequest(String hostname, int port, long id, TestVolleyCallbackInterface callback) {
         super(Method.GET, setURL(hostname, port, id), null,
-                new TestRequestResponseListener(callback), new ResponseErrorListener());
+                new TestRequestResponseListener(callback)
+, new ResponseErrorListener());
     }
 
     private static String setURL(String hostname, int port, long id) {
@@ -32,7 +33,7 @@ public class TestRequest extends JsonObjectRequest {
         @Override
         public void onResponse(JSONObject response) {
             callback.setText(response.toString());
-            callback.setText("OK we are good");
+            //callback.setText("OK we are good");
         }
     }
 

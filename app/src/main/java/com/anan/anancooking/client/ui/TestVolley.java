@@ -105,5 +105,6 @@ public class TestVolley extends Activity implements TestVolleyCallbackInterface{
     public void setText(String str) {
         TextView mTextView = (TextView) findViewById(R.id.hellovolley);
         mTextView.setText(str);
+        //mTextView.setText("Why??!?!");
     }
 }
