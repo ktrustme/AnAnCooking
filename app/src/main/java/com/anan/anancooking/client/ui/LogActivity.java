@@ -32,7 +32,7 @@ public class LogActivity extends Activity {
         setStatusBar();
         setProgressCircle();
         setButton();
-        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+        //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
     /**

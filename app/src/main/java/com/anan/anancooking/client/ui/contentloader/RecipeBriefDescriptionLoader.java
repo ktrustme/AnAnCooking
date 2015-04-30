@@ -39,15 +39,15 @@ public class RecipeBriefDescriptionLoader extends AsyncTask<Long, Void, RecipeIn
         //the following line should be changed to send a http request and fetch a recipe back
         RecipeInterface recipe = new RecipeImplementation();
 
-        Drawable drawable= parentActivity.getResources().getDrawable(R.drawable.fried_rice_finished);
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        //Drawable drawable= parentActivity.getResources().getDrawable(R.drawable.fried_rice_finished);
+        //Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        //ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
 
 
-        byte[] bitmapdata = stream.toByteArray();
-        recipe.setPreviewByteCode(bitmapdata);
+        //byte[] bitmapdata = stream.toByteArray();
+        //recipe.setPreviewByteCode(bitmapdata);
 
         return recipe;
 
@@ -62,7 +62,17 @@ public class RecipeBriefDescriptionLoader extends AsyncTask<Long, Void, RecipeIn
         //First find the ui component, then load content into the component.
         ImageView previewImage = (ImageView) parentActivity.findViewById(R.id.image_view_preview_recipe_intro);
         //Converting byte array to bitmap drawable is troublesome, but seems currently the best way to do that.
-        previewImage.setImageDrawable(new BitmapDrawable(BitmapFactory.decodeByteArray(recipe.getPreviewByteCode(),0,recipe.getPreviewByteCode().length)));
+
+/*
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(parentActivity.getResources(), R.id.myimage, options);
+        int imageHeight = options.outHeight;
+        int imageWidth = options.outWidth;
+        String imageType = options.outMimeType;
+*/
+
+        //previewImage.setImageDrawable(new BitmapDrawable(BitmapFactory.decodeByteArray(recipe.getPreviewByteCode(),0,recipe.getPreviewByteCode().length)));
         //其他的text之类的
         ((TextView) parentActivity.findViewById(R.id.text_view_ingredients_recipe_intro)).setText("One tomato\nTwo Eggs\n4 Teaspoon Oil\n2 Chopped Onions\n1 Green Pepper");
         ((TextView) parentActivity.findViewById(R.id.text_view_time_recipe_intro)).setText("10 Mins");

@@ -10,18 +10,25 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.ws.remote.AnAnNetworkProtocols;
+import com.anan.anancooking.client.ws.remote.FetchRecipeRequest;
+import com.anan.anancooking.client.ws.remote.TestRequest;
 import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
+import com.anan.anancooking.client.ws.remote.ResponseErrorListener;
+import com.anan.anancooking.client.ws.remote.TestVolleyCallbackInterface;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class TestVolley extends Activity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class TestVolley extends Activity implements TestVolleyCallbackInterface{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,7 @@ public class TestVolley extends Activity {
         RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
                 getRequestQueue();
         String url = "http://www.google.com";
-        url = "http://www.baidu.com";
+        url = "http://kuoxindeMBP.wv.cc.cmu.edu:1234";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -73,15 +80,16 @@ public class TestVolley extends Activity {
                 mTextView.setText("That didn't work!");
             }
         });
-
+        Map<String, Object> postParam= new HashMap<String, Object>();
+        postParam.put("un", "xyz@gmail.com");
+        postParam.put("p", "somepasswordhere");
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, url, new JSONObject(postParam), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         mTextView.setText("Response: " + response.toString());
                     }
-                }, new Response.ErrorListener() {
-
+                }, new ResponseErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
@@ -89,6 +97,13 @@ public class TestVolley extends Activity {
                     }
                 });
         // Add the request to the RequestQueue.
-        queue.add(jsObjRequest);
+        //queue.add(jsObjRequest);
+        queue.add(new TestRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM,11122,this));
+    }
+
+    @Override
+    public void setText(String str) {
+        TextView mTextView = (TextView) findViewById(R.id.hellovolley);
+        mTextView.setText(str);
     }
 }

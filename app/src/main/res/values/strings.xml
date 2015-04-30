@@ -51,6 +51,7 @@
     <string name="uncaught_exception_message">Somthing goes wrong. You can upload the error report to help us fix that</string>
     <string name="report_error_button">Report Error</string>
     <string name="exit_button">Exit</string>
+    <string name="title_activity_test_volley">TestVolley</string>
 
 
 </resources>

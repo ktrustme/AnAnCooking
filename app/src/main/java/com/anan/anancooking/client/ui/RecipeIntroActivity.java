@@ -28,7 +28,7 @@ public class RecipeIntroActivity extends Activity {
         setTimeText();
         setPreviewImage();
         new RecipeBriefDescriptionLoader(this).execute(recipeId);
-        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+        //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
     private void setIngredientsText() {

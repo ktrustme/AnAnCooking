@@ -11,11 +11,13 @@
  ------------------------------*/
 package com.anan.anancooking.client.exception;
 
+import android.app.Activity;
+
 /**
  * @author kuoxin
  * Interface...required by the write up...
  */
 public interface ExceptionHandlerInterface
 {
-	public void fix(MyExceptionEnum exenum);
+	public void fix(Activity parentActivity);
 }

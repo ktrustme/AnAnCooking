@@ -36,7 +36,7 @@ public class UseRecipeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_recipe);
         setListView();
-        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+        //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
     private void setShareIntent(Intent shareIntent) {

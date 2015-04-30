@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 /**
  * Created by kuoxin on 4/4/15.
+ * Here we don't need asyn task, since all data has been downloaded in the previous Activity
  */
 public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
 
@@ -40,10 +41,11 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-
         ViewHolder holder = null;
 
+        //Get the i'th step
         StepInterface rowItem = getItem(position);
+        //Inflate corresponding layout
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -60,14 +62,22 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
         //if (holder.imageView.getDrawable() == null) {
         DisplayMetrics dm = new DisplayMetrics();
         int width = parent.getMeasuredWidth();
+
+        //Set the listview image, text, etc
         holder.txtDescription.setText(rowItem.getDescription());
         holder.txtTitle.setText(rowItem.getName());
-        //new Handler().post(new testRunnable(holder, rowItem.getImageByteCode()));
-        holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
+        //holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
+
+        if(rowItem.getImageByteCode()==null){
+            holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
+        }else{
+            holder.imageView.setImageDrawable(ImageByteArrayToDrawableConverter.convert(rowItem.getImageByteCode()));
+        }
         holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(width, width * 3 / 4));
         return convertView;
     }
 
+    /*
     private class testRunnable implements Runnable {
         ViewHolder vh = null;
         int sourceId = 0;
@@ -76,10 +86,10 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
             this.vh = viewHolder;
             this.sourceId = sourceId;
         }
-
         @Override
         public void run() {
             vh.imageView.setImageResource(R.drawable.ic_menu_rotate);
         }
     }
+    */
 }

@@ -11,6 +11,11 @@
  ------------------------------*/
 package com.anan.anancooking.client.exception;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+
+import com.anan.anancooking.R;
+
 import java.util.logging.Logger;
 
 /**
@@ -20,38 +25,28 @@ import java.util.logging.Logger;
  * the log file.
  */
 public class Fixer {
-	private String logfile;
-	public Fixer(){
-		this.logfile = logfile;
+	private Activity parentActivity;
+	public Fixer(Activity parentActivity){
+        this.parentActivity = parentActivity;
 	}
-	public void fix1(){
-		Logger logger = Logger.getLogger("Exception log");
-		logger.info("fix1(): Sry I don't know how to deal with that, but you know what? Let's just continue the program!");
+	public void fix1(MyExceptionEnum exenum){
+		showAlertDialog(exenum.getMessage());
 	}
 	
-	public void fix2(){
-		Logger logger = Logger.getLogger("Exception log");
-		logger.info("fix2(): Sry I don't know how to deal with that, but you know what? Let's just continue the program!");
-		//System.out.println("Sry I don't know how to deal with that, but you know what? Let's just continue the program!");
+	public void fix2(MyExceptionEnum exenum){
+        showAlertDialog(exenum.getMessage());
 	}
 
-	public void fix3(){
-		Logger logger = Logger.getLogger("Exception log");
-		logger.info("fix3(): Sry I don't know how to deal with that, but you know what? Let's just continue the program!");
+	public void fix3(MyExceptionEnum exenum){
+        showAlertDialog(exenum.getMessage());
 	}
 
-	public void fix4(){
-		Logger logger = Logger.getLogger("Exception log");
-		logger.info("fix4(): Sry I don't know how to deal with that, but you know what? Let's just continue the program!");
-	}
-	
-	public void fix5(){
-		Logger logger = Logger.getLogger("Exception log");
-		logger.info("fix5(): Sry I don't know how to deal with that, but you know what? Let's just continue the program!");
-	}
-	
-	public void fix6(){
-		Logger logger = Logger.getLogger("Exception log");
-		logger.info("fix6(): Sry I don't know how to deal with that, but you know what? Let's just continue the program!");
-	}
+
+    private void showAlertDialog(String message){
+        String title = "Exception Message:";
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
+        builder.setMessage(message)
+                .setTitle(title);
+        AlertDialog dialog = builder.create();
+    }
 }
