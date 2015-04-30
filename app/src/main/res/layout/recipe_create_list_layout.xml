@@ -38,7 +38,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
+            <!--Button
                 android:id="@+id/image_pick_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,18 +46,10 @@
                 android:layout_gravity="left"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/custom_button"
-                android:text="Image" />
+                android:onClick="chooseImage"
+                android:text="Image" /-->
 
-            <Button
-                android:id="@+id/update_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="left"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/custom_button"
-                android:onClick="openUpdateStepDialog"
-                android:text="@string/create_step_update_step" />
+
 
         </LinearLayout>
 
@@ -77,13 +69,13 @@
             android:maxHeight="300dp"
             android:src="@drawable/ic_launcher" />
 
-        <EditText
+        <TextView
             android:id="@+id/description_list_element"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_weight="1"
-            android:hint="description"
+            android:textSize="20dp"
             android:lines="3" />
         <!--/LinearLayout-->
     </LinearLayout>
@@ -99,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="left"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="3dp"
             android:layout_weight="1"
             android:background="@drawable/custom_button"
             android:text="@string/create_step_delete_step" />
@@ -109,12 +101,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_gravity="right"
+            android:layout_gravity="center"
+            android:layout_marginRight="3dp"
             android:layout_toRightOf="@id/delete_btn"
             android:layout_weight="1"
             android:background="@drawable/custom_button"
             android:text="@string/create_step_insert_step" />
 
+        <Button
+            android:id="@+id/update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:layout_toRightOf="@id/save_recipe_btn"
+            android:layout_weight="1"
+            android:background="@drawable/custom_button"
+            android:onClick="openUpdateStepDialog"
+            android:text="@string/create_step_update_step" />
 
     </LinearLayout>
     <!--/RelativeLayout-->

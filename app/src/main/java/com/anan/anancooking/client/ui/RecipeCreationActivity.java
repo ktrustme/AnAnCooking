@@ -1,6 +1,10 @@
 package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +18,18 @@ import com.anan.anancooking.model.RecipeCreateListHelper;
 import com.anan.anancooking.model.Step;
 import com.anan.anancooking.client.ui.viewadapters.*;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
 public class RecipeCreationActivity extends Activity
-        implements AddStepDialog.OnAddStepConfirmedListener, UpdateStepDialog.OnUpdateConfirmedListener,InsertionStepDialog.OnInsertionConfirmedListener {
+        implements AddStepDialog.OnAddStepConfirmedListener,
+        UpdateStepDialog.OnUpdateConfirmedListener,
+        InsertionStepDialog.OnInsertionConfirmedListener
+                   {
+
+    private final int SELECT_PHOTO = 999;
     private int stepCounter=1;
     private final static int MAXIMUM_STEP = 20;
     private ListView listView = null;
@@ -91,19 +102,36 @@ public class RecipeCreationActivity extends Activity
         */
 
     }
-    /*
-    public void chooseImage(View view){
-        Intent intent = new Intent(getApplicationContext(), ImagePickerActivity.class);
-        startActivity(intent);
+
+    public void chooseImage(Step step, int position){
+        /*Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, IMAGE_PICKER_SELECT);
+        */
+        Intent intent = new Intent(this, ImagePickerActivity.class);
+        startActivityForResult(intent, SELECT_PHOTO);
+
         return;
     }
-    */
+
+
+    /*public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == IMAGE_PICKER_SELECT  && resultCode == Activity.RESULT_OK) {
+            RecipeCreationActivity activity = (RecipeCreationActivity)getActivity();
+            Bitmap bitmap = getBitmapFromCameraData(data, activity);
+            mSelectedImage.setImageBitmap(bitmap);
+      }
+    }*/
 
     public void openUpdateStepDialog(Step step, int position) {
         Bundle args = new Bundle();
+
+        // pass the argument from the stored step list
         args.putString("edit_text_update_description", step.getDescription());
+        args.putByteArray("image_view",step.getBytes());
+
         args.putString("text_view_update_step_position",position+"");
-        UpdateStepDialog updateStepDialog = UpdateStepDialog.newInstance(step.getDescription(),position);
+        UpdateStepDialog updateStepDialog = UpdateStepDialog.newInstance(step.getDescription(),position,step.getBytes());
         updateStepDialog.setArguments(args);
         updateStepDialog.show(getFragmentManager(), "update_dialog");
     }
@@ -116,15 +144,12 @@ public class RecipeCreationActivity extends Activity
         insertionStepDialog.show(getFragmentManager(), "update_dialog");
     }
 
-    public void save(View view){
-
-    }
-
     private void refreshListView() {
         listView.setAdapter(adapter);
     }
 
-    @Override
+
+    //@Override
     public void addStep(Step step) {
         steps.add(step);
         refreshListView();
@@ -134,10 +159,11 @@ public class RecipeCreationActivity extends Activity
 
 
     public void updateStep(Step step, int position) {
-        steps.get(position).setDescription(step.getDescription());
+        steps.set(position,step);
         refreshListView();
         return;
     }
+
 
     @Override
     public void insertStep(Step step, int position) {

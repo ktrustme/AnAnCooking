@@ -28,19 +28,16 @@ public class ImagePickerActivity extends Activity {
 
         imageView = (ImageView)findViewById(R.id.imageView);
 
-        Button pickImage = (Button) findViewById(R.id.btn_pick);
-        pickImage.setOnClickListener(new OnClickListener() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
 
-            @Override
-            public void onClick(View view) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-            }
-        });
     }
 
-    @Override
+
+
+    //@Override
+
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
@@ -59,6 +56,7 @@ public class ImagePickerActivity extends Activity {
                 }
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

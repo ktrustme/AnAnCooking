@@ -44,9 +44,15 @@
     <string name="create_step_add_step">Add Step</string>
     <string name="create_step_description">Description</string>
     <string name="create_step_save">Save</string>
-    <string name="create_step_insert_step">Insert Step</string>
+    <string name="create_step_insert_step">Insert</string>
+    <string name="create_step_update_position_title">Update step</string>
+    <string name="create_step_insert_position_title">Insert new step after </string>
     <string name="create_step_update_step">Update</string>
     <string name="create_step_delete_step">Delete</string>
+    <string name="choose_image">Choose Image</string>
+
+
+    <!-- Error Handling Part. by Kuo -->
     <string name="title_activity_crash_page">Opps... X_X</string>
     <string name="uncaught_exception_message">Somthing goes wrong. You can upload the error report to help us fix that</string>
     <string name="report_error_button">Report Error</string>
