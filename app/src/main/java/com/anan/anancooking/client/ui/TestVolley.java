@@ -1,8 +1,6 @@
 package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
-import android.app.DownloadManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,20 +9,16 @@ import android.widget.TextView;
 
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.ws.remote.AnAnNetworkProtocols;
-import com.anan.anancooking.client.ws.remote.FetchRecipeRequest;
-import com.anan.anancooking.client.ws.remote.TestRequest;
 import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
-import com.anan.anancooking.client.ws.remote.ResponseErrorListener;
 import com.anan.anancooking.client.ws.remote.TestVolleyCallbackInterface;
-import com.android.volley.Request;
+import com.anan.anancooking.client.ws.remote.UploadRecipeRequest;
+import com.anan.anancooking.model.Step;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,7 +59,11 @@ public class TestVolley extends Activity implements TestVolleyCallbackInterface{
         RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
                 getRequestQueue();
         String url = "http://www.google.com";
-        url = "http://kuoxindeMBP.wv.cc.cmu.edu:1234";
+        //url = "http://kuoxindeMBP.wv.cc.cmu.edu:1234";
+
+        //url="http:zihs-mbp.wv.cc.cmu.edu:8080";
+        /*
+        url = "Zihs-MacBook-Pro.local:8080";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -80,9 +78,43 @@ public class TestVolley extends Activity implements TestVolleyCallbackInterface{
                 mTextView.setText("That didn't work!");
             }
         });
-        Map<String, Object> postParam= new HashMap<String, Object>();
-        postParam.put("un", "xyz@gmail.com");
+        */
+        Step temp = new Step();
+        temp.setDescription("kuokuo");
+        temp.setRecipeID("ssss");
+        temp.setStepID(1001);
+
+        Step temp2 = new Step();
+        temp2.setDescription("aaa");
+        temp2.setRecipeID("ksksks");
+        temp2.setStepID(1002);
+
+        Map<String, String> postParam= new HashMap<String, String>();
+        ArrayList<Step> a = new ArrayList<Step>();
+        a.add(temp);
+        a.add(temp2);
+
+        ArrayList<String> toServer = convertList(a);
+
+        JSONArray jsArray = new JSONArray(toServer);
+
+        JSONObject object = null;
+
+
+
+
+
+
+        postParam.put("un", temp.toString());
         postParam.put("p", "somepasswordhere");
+        //System.out.println(temp.toString());
+
+
+
+
+        object = new JSONObject(postParam);
+
+        /*
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url, new JSONObject(postParam), new Response.Listener<JSONObject>() {
                     @Override
@@ -97,8 +129,10 @@ public class TestVolley extends Activity implements TestVolleyCallbackInterface{
                     }
                 });
         // Add the request to the RequestQueue.
-        //queue.add(jsObjRequest);
-        queue.add(new TestRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM,11122,this));
+        //queue.add(jsObjRequest);*/
+        //queue.stop();
+        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
+
     }
 
     @Override
@@ -106,5 +140,14 @@ public class TestVolley extends Activity implements TestVolleyCallbackInterface{
         TextView mTextView = (TextView) findViewById(R.id.hellovolley);
         mTextView.setText(str);
         //mTextView.setText("Why??!?!");
+    }
+
+    public ArrayList<String> convertList(ArrayList<Step> steps){
+        int n = steps.size();
+        ArrayList<String> ret = new ArrayList<String>();
+        for(int i=0;i<n;i++){
+            ret.add(i,steps.get(i).toString());
+        }
+        return ret;
     }
 }

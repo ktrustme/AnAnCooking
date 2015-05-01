@@ -2,9 +2,6 @@ package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,20 +10,25 @@ import android.view.View;
 import android.app.*;
 
 import com.anan.anancooking.R;
-import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
+import com.anan.anancooking.client.ws.remote.AnAnNetworkProtocols;
+import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
+import com.anan.anancooking.client.ws.remote.TestVolleyCallbackInterface;
+import com.anan.anancooking.client.ws.remote.UploadRecipeRequest;
 import com.anan.anancooking.model.RecipeCreateListHelper;
 import com.anan.anancooking.model.Step;
 import com.anan.anancooking.client.ui.viewadapters.*;
+import com.android.volley.RequestQueue;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 
 public class RecipeCreationActivity extends Activity
         implements AddStepDialog.OnAddStepConfirmedListener,
         UpdateStepDialog.OnUpdateConfirmedListener,
-        InsertionStepDialog.OnInsertionConfirmedListener
+        InsertionStepDialog.OnInsertionConfirmedListener,
+        TestVolleyCallbackInterface
                    {
 
     private final int SELECT_PHOTO = 999;
@@ -171,5 +173,27 @@ public class RecipeCreationActivity extends Activity
         steps.add(position+1,step);
         refreshListView();
         return;
+    }
+
+    public void sendToServer(View view){
+        RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
+                getRequestQueue();
+        JSONArray jsArray = new JSONArray(convertList(steps));
+        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
+
+    }
+
+    public ArrayList<String> convertList(ArrayList<Step> steps){
+        int n = steps.size();
+        ArrayList<String> ret = new ArrayList<String>();
+        for(int i=0;i<n;i++){
+            ret.add(i,steps.get(i).toString());
+        }
+        return ret;
+    }
+
+    @Override
+    public void setText(String str) {
+
     }
 }

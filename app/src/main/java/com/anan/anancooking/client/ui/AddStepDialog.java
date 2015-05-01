@@ -122,7 +122,7 @@ public class AddStepDialog extends DialogFragment implements View.OnClickListene
         Bitmap bm = view2.getDrawingCache();
         //System.out.println("in add step:  " + bm2);
 
-
+       
         //view.setDrawingCacheEnabled(true);
         //view.buildDrawingCache();
         //Bitmap bm = view.getDrawingCache();
