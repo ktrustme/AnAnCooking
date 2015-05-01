@@ -28,8 +28,9 @@ public class RecipeCreationActivity extends Activity
         implements AddStepDialog.OnAddStepConfirmedListener,
         UpdateStepDialog.OnUpdateConfirmedListener,
         InsertionStepDialog.OnInsertionConfirmedListener,
-        TestVolleyCallbackInterface
-                   {
+        TestVolleyCallbackInterface,
+        SaveToServerConfirmDialog.SendToServerConfirmedListener
+{
 
     private final int SELECT_PHOTO = 999;
     private int stepCounter=1;
@@ -176,11 +177,9 @@ public class RecipeCreationActivity extends Activity
     }
 
     public void sendToServer(View view){
-        RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
-                getRequestQueue();
-        JSONArray jsArray = new JSONArray(convertList(steps));
-        //queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
-
+        Bundle args = new Bundle();
+        SaveToServerConfirmDialog saveToServerConfirmDialog = SaveToServerConfirmDialog.newInstance();
+        saveToServerConfirmDialog.show(getFragmentManager(), "save_to_Server_dialog");
     }
 
     public ArrayList<String> convertList(ArrayList<Step> steps){
@@ -194,6 +193,16 @@ public class RecipeCreationActivity extends Activity
 
     @Override
     public void setText(String str) {
+        // do nothing
+    }
 
+    @Override
+    public void confirm() {
+        RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
+                getRequestQueue();
+        JSONArray jsArray = new JSONArray(convertList(steps));
+        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
+        steps.clear();
+        refreshListView();
     }
 }
