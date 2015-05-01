@@ -131,7 +131,7 @@ public class TestVolley extends Activity implements TestVolleyCallbackInterface{
         // Add the request to the RequestQueue.
         //queue.add(jsObjRequest);*/
         //queue.stop();
-        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
+        //queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
 
     }
 

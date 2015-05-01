@@ -83,10 +83,11 @@ public class RecipeIntroActivity extends Activity implements FetchRecipeRequestC
     public void startSteps(View view) {
         Bundle b = new Bundle();
         b.putSerializable("recipeSteps", this.recipe.getSteps());
-
         Intent intent = new Intent(this, com.anan.anancooking.client.ui.UseRecipeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         intent.putExtras(b);
+
+
         startActivity(intent);
     }
 

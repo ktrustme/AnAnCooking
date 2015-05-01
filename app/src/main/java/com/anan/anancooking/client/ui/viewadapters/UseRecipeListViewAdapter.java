@@ -14,21 +14,23 @@ import android.widget.TextView;
 
 import com.anan.anancooking.R;
 
-import com.anan.anancooking.model.StepInterface;
+import com.anan.anancooking.model.Step;
+
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kuoxin on 4/4/15.
  * Here we don't need asyn task, since all data has been downloaded in the previous Activity
  */
-public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
+public class UseRecipeListViewAdapter extends ArrayAdapter<Step> {
 
 
     Context context;
 
     public UseRecipeListViewAdapter(Context context, int resourceId, //resourceId=your layout
-                                    ArrayList<StepInterface> items) {
+                                    List<Step> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -44,7 +46,7 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
         ViewHolder holder = null;
 
         //Get the i'th step
-        StepInterface rowItem = getItem(position);
+        Step rowItem = getItem(position);
         //Inflate corresponding layout
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -65,13 +67,13 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<StepInterface> {
 
         //Set the listview image, text, etc
         holder.txtDescription.setText(rowItem.getDescription());
-        holder.txtTitle.setText(rowItem.getName());
+        holder.txtTitle.setText("Step " +position);
         //holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
 
-        if(rowItem.getImageByteCode()==null){
+        if(rowItem.getBytes()==null){
             holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
         }else{
-            holder.imageView.setImageDrawable(ImageByteArrayToDrawableConverter.convert(rowItem.getImageByteCode()));
+            holder.imageView.setImageDrawable(ImageByteArrayToDrawableConverter.convert(rowItem.getBytes()));
         }
         holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(width, width * 3 / 4));
         return convertView;

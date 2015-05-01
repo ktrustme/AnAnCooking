@@ -179,7 +179,7 @@ public class RecipeCreationActivity extends Activity
         RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
                 getRequestQueue();
         JSONArray jsArray = new JSONArray(convertList(steps));
-        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
+        //queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
 
     }
 
