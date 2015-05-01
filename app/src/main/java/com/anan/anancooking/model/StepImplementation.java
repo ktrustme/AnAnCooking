@@ -1,9 +1,11 @@
 package com.anan.anancooking.model;
 
+import java.io.Serializable;
+
 /**
  * Created by kuoxin on 4/13/15.
  */
-public class StepImplementation implements StepInterface {
+public class StepImplementation implements StepInterface, Serializable {
     String name;
     String description;
     byte[] imageByteCode;

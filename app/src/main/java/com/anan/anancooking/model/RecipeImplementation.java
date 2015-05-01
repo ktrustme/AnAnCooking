@@ -9,12 +9,13 @@ import android.widget.ImageView;
 
 import com.anan.anancooking.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by kuoxin on 4/4/15.
  */
-public class RecipeImplementation implements RecipeInterface {
+public class RecipeImplementation implements RecipeInterface, Serializable {
 
     String ingredients = null;
     int time = 0;

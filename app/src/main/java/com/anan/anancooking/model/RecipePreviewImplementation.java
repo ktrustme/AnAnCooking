@@ -3,10 +3,12 @@ package com.anan.anancooking.model;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 
+import java.io.Serializable;
+
 /**
  * Created by kuoxin on 4/13/15.
  */
-public class RecipePreviewImplementation implements RecipePreviewInterface {
+public class RecipePreviewImplementation implements RecipePreviewInterface, Serializable {
     String name = null;
     int time = 0;
     String ingredients = null;

@@ -2,6 +2,10 @@ package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -14,37 +18,51 @@ import android.widget.TextView;
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 import com.anan.anancooking.client.ui.contentloader.RecipeBriefDescriptionLoader;
+import com.anan.anancooking.client.ws.remote.AnAnNetworkProtocols;
+import com.anan.anancooking.client.ws.remote.FetchRecipeRequest;
+import com.anan.anancooking.client.ws.remote.FetchRecipeRequestCallbackInterface;
+import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
+import com.anan.anancooking.model.RecipeInterface;
+import com.android.volley.RequestQueue;
 
 
-public class RecipeIntroActivity extends Activity {
-    long recipeId;
+public class RecipeIntroActivity extends Activity implements FetchRecipeRequestCallbackInterface {
+
+    RecipeInterface recipe = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_intro);
-        setIngredientsText();
-        setDescriptionText();
-        setTimeText();
-        setPreviewImage();
-        new RecipeBriefDescriptionLoader(this).execute(recipeId);
+        setIngredientsText("loading");
+        setDescriptionText("loading");
+        setTimeText("loading");
+        setPreviewImage(BitmapFactory.decodeResource(getResources(),R.drawable.ic_menu_rotate));
+        //new RecipeBriefDescriptionLoader(this).execute(recipeId);
+        RequestQueue queue= MySingletonRequestQueue.getInstance(getApplicationContext()).getRequestQueue();
+        int id = 1;//Hardcoded ID~~~~~~lalalallalal~~~
+        queue.add(new FetchRecipeRequest(this, AnAnNetworkProtocols.HOST_NAME, AnAnNetworkProtocols.PORT_NUM, id));
         //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
-    private void setIngredientsText() {
+    @Override
+    public void setIngredientsText(String ingredientsText) {
         //hardcode, ~~~ lalala
-        ((TextView) findViewById(R.id.text_view_ingredients_recipe_intro)).setText("Ingredients...");
+        ((TextView) findViewById(R.id.text_view_ingredients_recipe_intro)).setText(ingredientsText);
     }
 
-    private void setDescriptionText() {
-        ((TextView) findViewById(R.id.text_view_time_recipe_intro)).setText("time...");
+    @Override
+    public void setDescriptionText(String descriptionText) {
+        ((TextView) findViewById(R.id.text_view_description_recipe_intro)).setText(descriptionText);
     }
 
-    private void setTimeText() {
-        ((TextView) findViewById(R.id.text_view_description_recipe_intro)).setText("description...");
+    @Override
+    public void setTimeText(String timeText) {
+        ((TextView) findViewById(R.id.text_view_time_recipe_intro)).setText(timeText);
     }
 
-    private void setPreviewImage() {
+    @Override
+    public void setPreviewImage(Bitmap bitmap) {
         ImageView iv = (ImageView) findViewById(R.id.image_view_preview_recipe_intro);
         //new Handler().post(new Loader(iv, R.drawable.fried_rice_finished));
         DisplayMetrics dm = new DisplayMetrics();
@@ -53,11 +71,22 @@ public class RecipeIntroActivity extends Activity {
         iv.setAdjustViewBounds(true);
         iv.setLayoutParams(new LinearLayout.LayoutParams(width, width * 3 / 4));
         iv.requestLayout();
+
+        iv.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void setRecipe(RecipeInterface recipe) {
+        this.recipe = recipe;
     }
 
     public void startSteps(View view) {
+        Bundle b = new Bundle();
+        b.putSerializable("recipeSteps", this.recipe.getSteps());
+
         Intent intent = new Intent(this, com.anan.anancooking.client.ui.UseRecipeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        intent.putExtras(b);
         startActivity(intent);
     }
 
@@ -77,7 +106,6 @@ public class RecipeIntroActivity extends Activity {
             startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

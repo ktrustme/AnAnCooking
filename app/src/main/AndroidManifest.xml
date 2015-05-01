@@ -15,6 +15,11 @@
             android:name=".client.ui.LogActivity"
             android:label="@string/app_name"
             android:theme="@style/NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".client.ui.MainPageActivity"
@@ -66,10 +71,6 @@
             android:name=".client.ui.TestVolley"
             android:label="@string/title_activity_test_volley"
             android:theme="@style/CustomMainPageTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

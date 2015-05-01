@@ -1,9 +1,12 @@
 package com.anan.anancooking.model;
 import android.widget.*;
+
+import java.io.Serializable;
+
 /**
  * Created by zihsiangsyu on 4/4/15.
  */
-public class Step {
+public class Step implements Serializable {
     private String recipeID;
     private int stepID;
     private String description;
