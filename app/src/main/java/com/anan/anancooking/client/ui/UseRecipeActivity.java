@@ -17,6 +17,7 @@ import com.anan.anancooking.R;
 import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
 import com.anan.anancooking.client.ui.viewadapters.CustomListViewAdapterUseRecipe;
 import com.anan.anancooking.client.ui.viewadapters.UseRecipeListViewAdapter;
+import com.anan.anancooking.model.Step;
 import com.anan.anancooking.model.Steps;
 
 
@@ -25,17 +26,22 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 
 public class UseRecipeActivity extends Activity {
     ListView lv = null;
     ShareActionProvider myShareActionProvider = null;
-
+    List<Step> steps = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        Bundle bn = getIntent().getExtras();
+        this.steps = (List<Step>)bn.getSerializable("recipeSteps");
         setContentView(R.layout.activity_use_recipe);
         setListView();
+
         //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
@@ -98,8 +104,9 @@ public class UseRecipeActivity extends Activity {
     */
 
     private void setListView() {
+
         this.lv = (ListView) findViewById(R.id.listView_steps);
-        UseRecipeListViewAdapter adapter = new UseRecipeListViewAdapter(this, R.layout.list_item_single_step, Steps.asList());
+        UseRecipeListViewAdapter adapter = new UseRecipeListViewAdapter(this, R.layout.list_item_single_step, steps);
         this.lv.setAdapter(adapter);
         this.lv.addFooterView(getLayoutInflater().inflate(R.layout.rating_button, null));
 
