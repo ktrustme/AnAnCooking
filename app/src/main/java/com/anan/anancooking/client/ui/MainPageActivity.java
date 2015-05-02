@@ -8,10 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.ui.customLayout.SlidingTabLayout;
 import com.anan.anancooking.client.ui.listeners.CreateRecipeButtonListener;
+import com.anan.anancooking.client.ui.listeners.SearchSubmitButtonListener;
 import com.anan.anancooking.client.ui.viewadapters.MainPagePagerChangeListener;
 import com.anan.anancooking.client.ui.viewadapters.MainPagerAdapter;
 
@@ -38,6 +40,7 @@ public class MainPageActivity extends FragmentActivity {
     private void setButton() {
         createRecipeButton = (Button) findViewById(R.id.button_create_recipe);
         createRecipeButton.setOnClickListener(new CreateRecipeButtonListener());
+
     }
 
     /**
@@ -48,7 +51,7 @@ public class MainPageActivity extends FragmentActivity {
         fpa = new MainPagerAdapter(getSupportFragmentManager(), this);
 
         fpa.addFragment(RecommendationFragment.newInstance(), "Recommend");
-        fpa.addFragment(RecommendationFragment.newInstance(), "History");
+        fpa.addFragment(HistoryFragment.newInstance(), "History");
         fpa.addFragment(RecommendationFragment.newInstance(), "Favorite");
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager_mainpage);
@@ -68,6 +71,10 @@ public class MainPageActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_mainpage, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        ((SearchView) searchItem.getActionView()).setSubmitButtonEnabled(true);
+        ((SearchView) searchItem.getActionView()).setOnQueryTextListener(new SearchSubmitButtonListener(this));
+
         return super.onCreateOptionsMenu(menu);
 
     }
