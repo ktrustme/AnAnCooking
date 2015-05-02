@@ -27,9 +27,13 @@ public class RecipeImplementation implements RecipeInterface, Serializable {
         this.recipeName = name;
     }
 
-    @Override
+    /*@Override
     public RecipeInterface setSteps(ArrayList<Step> steps) {
         return null;
+    }*/
+
+    public void setSteps(ArrayList<Step> steps){
+        this.steps = steps;
     }
 
     @Override

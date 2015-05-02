@@ -22,7 +22,7 @@
         android:text="@string/finish_and_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="sendToServer"
+        android:onClick="sendToServerDialog"
         android:background="@drawable/custom_button"
         android:paddingTop="16dp"
 

@@ -44,7 +44,7 @@ public class SaveToServerConfirmDialog extends DialogFragment implements View.On
                              Bundle savedInstanceState) {
 
 
-
+        
         getDialog().setTitle("Confirm finish and save?");
         View view = inflater.inflate(R.layout.fragment_save_to_server_confirm_dialog, container, false);
         Bundle args = getArguments();

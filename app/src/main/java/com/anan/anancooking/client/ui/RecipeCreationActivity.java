@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -153,18 +154,20 @@ public class RecipeCreationActivity extends Activity
 
     @Override
     public void insertStep(Step step, int position) {
-        System.out.println("insertStep position = "+position);
+        //System.out.println("insertStep position = "+position);
         steps.add(position+1,step);
         refreshListView();
         return;
     }
 
-    public void sendToServer(View view){
-        Bundle args = new Bundle();
+    public void sendToServerDialog(View view){
+        //System.out.println(steps);
+        //Bundle args = new Bundle();
         SaveToServerConfirmDialog saveToServerConfirmDialog = SaveToServerConfirmDialog.newInstance();
+        //saveToServerConfirmDialog.setArguments(args);
         saveToServerConfirmDialog.show(getFragmentManager(), "save_to_Server_dialog");
     }
-
+/*
     public ArrayList<String> convertList(ArrayList<Step> steps){
         int n = steps.size();
         ArrayList<String> ret = new ArrayList<String>();
@@ -174,7 +177,7 @@ public class RecipeCreationActivity extends Activity
         }
         return ret;
     }
-
+*/
     @Override
     public void setText(String str) {
         // do nothing
@@ -182,6 +185,8 @@ public class RecipeCreationActivity extends Activity
 
     @Override
     public void confirm() {
+        //System.out.println(steps);
+
         RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
                 getRequestQueue();
 
@@ -194,15 +199,22 @@ public class RecipeCreationActivity extends Activity
         recipe.setPreviewByteCode(rpi.getPreviewByteCode());
         recipe.setSteps(steps);
 
+        /*
         JSONObject recipeJson = new JSONObject();
         try {
             recipeJson.put("recipe", recipe);
             System.out.println("Json no problem to convert.");
         }catch(Exception e){
             e.toString();
+        }*/
+
+        JSONObject recipeJson = new JSONObject();
+        Gson gson = new Gson();
+        try {
+            recipeJson = new JSONObject(gson.toJson(recipe).toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-
         // queue
         queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM,this,recipeJson));
         steps.clear();
