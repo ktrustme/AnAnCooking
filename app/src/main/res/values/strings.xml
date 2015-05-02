@@ -29,7 +29,8 @@
     <string name="rating_comments">Wanna Say Something?</string>
     <string name="submit_comment">Enjoy Your Dishes :)</string>
     <string name="title_activity_create_recipe_brief_description">
-        CreateRecipeBriefDescriptionActivity
+
+     <!--CreateRecipeBriefDescriptionActivity-->
     </string>
     <string name="create_recipe_name_hint">Give a cool name!</string>
     <string name="create_recipe_ingredients">Ingredients</string>
@@ -52,6 +53,7 @@
     <string name="create_step_update_step">Update</string>
     <string name="create_step_delete_step">Delete</string>
     <string name="choose_image">Choose Image</string>
+    <string name="finish_and_save">Finish! Save the Recipe!!</string>
 
 
     <!-- Error Handling Part. by Kuo -->

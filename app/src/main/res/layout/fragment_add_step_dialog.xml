@@ -26,6 +26,8 @@
 
             <EditText
                 android:id="@+id/edittext_description"
+                style="@style/TextBlackSecondary"
+                android:backgroundTint="@color/transparent"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/create_step_description"

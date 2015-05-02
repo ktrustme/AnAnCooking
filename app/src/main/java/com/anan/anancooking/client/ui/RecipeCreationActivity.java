@@ -53,7 +53,6 @@ public class RecipeCreationActivity extends Activity
         listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
         //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
-
     }
 
 
@@ -86,37 +85,15 @@ public class RecipeCreationActivity extends Activity
     public void openAddDialog(View view){
         DialogFragment newFragment = AddStepDialog.newInstance();
         newFragment.show(getFragmentManager(), "dialog");
-
-
-        /*
-        if(stepCounter<=MAXIMUM_STEP) {
-            //ListViewAdapter adapter = new ListViewAdapter(list, this);
-            ListView listView = (ListView) findViewById(android.R.id.list);
-            Step step = new Step();
-            adapter.getList().add(step);
-            stepCounter++;
-            listView.setAdapter(adapter);
-        }else{
-            StringBuilder sb = new StringBuilder("Over step limit ");
-            sb.append(MAXIMUM_STEP).append(" already.");
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Error").setMessage(sb.toString()).show();
-        }
-        */
-
     }
 
-    public void chooseImage(Step step, int position){
-        /*Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, IMAGE_PICKER_SELECT);
-        */
+ /*   public void chooseImage(Step step, int position){
         Intent intent = new Intent(this, ImagePickerActivity.class);
         startActivityForResult(intent, SELECT_PHOTO);
 
         return;
     }
-
+*/
 
     /*public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == IMAGE_PICKER_SELECT  && resultCode == Activity.RESULT_OK) {
@@ -186,6 +163,7 @@ public class RecipeCreationActivity extends Activity
         int n = steps.size();
         ArrayList<String> ret = new ArrayList<String>();
         for(int i=0;i<n;i++){
+            steps.get(i).setStepID(i);
             ret.add(i,steps.get(i).toString());
         }
         return ret;
@@ -204,5 +182,9 @@ public class RecipeCreationActivity extends Activity
         queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
         steps.clear();
         refreshListView();
+
+        Intent intent = new Intent(this, MainPageActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        startActivity(intent);
     }
 }

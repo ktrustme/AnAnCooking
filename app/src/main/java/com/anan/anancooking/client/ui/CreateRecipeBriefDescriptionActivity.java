@@ -2,24 +2,42 @@ package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
-import com.anan.anancooking.client.ui.*;
+import com.anan.anancooking.model.RecipePreviewImplementation;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class CreateRecipeBriefDescriptionActivity extends Activity implements SeekBar.OnSeekBarChangeListener{
+    private final int SELECT_PHOTO = 4040;
 
     private EditText t2=null;
     private SeekBar sb=null;
+    private ImageView imageView;
+
+    private String recipeName;
+    private String ingredients;
+    private int time;
+    private String description;
+    private Bitmap image;
+
     private TextView.OnEditorActionListener listener = new EditText.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -57,8 +75,36 @@ public class CreateRecipeBriefDescriptionActivity extends Activity implements Se
         setContentView(R.layout.activity_create_recipe_brief_description);
         setSeekBar();
         Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+
+        Button saveBtn = (Button) findViewById(R.id.image_pick_btn_in_create_preview);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+            }
+        });
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case SELECT_PHOTO:
+                if(resultCode == RESULT_OK){
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        imageView.setImageBitmap(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,9 +134,11 @@ public class CreateRecipeBriefDescriptionActivity extends Activity implements Se
     private void setSeekBar(){
         sb = (SeekBar) findViewById(R.id.seekBar1);
         sb.setOnSeekBarChangeListener(this);
-        t2 = (EditText) findViewById(R.id.edit_message2);
+        t2 = (EditText) findViewById(R.id.edit_text_time);
         t2.setText("0");
         t2.setOnEditorActionListener(listener);
+        imageView = (ImageView) findViewById(R.id.selected_image_view);
+
     }
 
     @Override
@@ -111,6 +159,34 @@ public class CreateRecipeBriefDescriptionActivity extends Activity implements Se
     public void addSteps(View view){
         Intent intent = new Intent(this, RecipeCreationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+
+        RecipePreviewImplementation rpi = new RecipePreviewImplementation();
+
+
+        // setting the content of rpi
+        this.recipeName = ((EditText) findViewById(R.id.edit_text_recipe_name)).getText().toString();
+        this.ingredients = ((EditText) findViewById(R.id.edit_text_ingredient)).getText().toString();
+        this.time = Integer.parseInt(((EditText) findViewById(R.id.edit_text_time)).getText().toString());
+        this.description = ((EditText) findViewById(R.id.edit_text_description)).getText().toString();
+        // setting the imageView to Byte array
+        this.imageView = (ImageView)findViewById(R.id.selected_image_view);
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bm = imageView.getDrawingCache();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] imageByteArray = stream.toByteArray();
+        imageView.setDrawingCacheEnabled(false);
+
+        rpi.setName(this.recipeName);
+        rpi.setIngredients(this.ingredients);
+        rpi.setTime(this.time);
+        rpi.setPreviewByteCode(imageByteArray);
+
+        System.out.println(rpi.getTime());
+
+        // send the creating rpi to next step and start step-adding activity
+        intent.putExtra("rpi_to_next_step",rpi);
         startActivity(intent);
     }
 }

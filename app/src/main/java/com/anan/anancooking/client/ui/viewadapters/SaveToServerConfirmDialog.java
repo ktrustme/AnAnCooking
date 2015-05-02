@@ -45,7 +45,7 @@ public class SaveToServerConfirmDialog extends DialogFragment implements View.On
 
 
 
-        getDialog().setTitle("Add new step");
+        getDialog().setTitle("Confirm finish and save?");
         View view = inflater.inflate(R.layout.fragment_save_to_server_confirm_dialog, container, false);
         Bundle args = getArguments();
         Button yesBtn = (Button) view.findViewById(R.id.confrim_yes_btn);

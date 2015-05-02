@@ -48,7 +48,8 @@
                 android:id="@+id/edit_text_update_description"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-
+                style="@style/TextBlackSecondary"
+                android:backgroundTint="@color/transparent"
                 android:textSize="20dp"
                 />
 
