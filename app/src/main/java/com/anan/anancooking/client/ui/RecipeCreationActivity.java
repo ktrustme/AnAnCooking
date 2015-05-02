@@ -15,12 +15,15 @@ import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
 import com.anan.anancooking.client.ws.remote.TestVolleyCallbackInterface;
 import com.anan.anancooking.client.ws.remote.UploadRecipeRequest;
 import com.anan.anancooking.model.RecipeCreateListHelper;
+import com.anan.anancooking.model.RecipeImplementation;
 import com.anan.anancooking.model.RecipePreviewImplementation;
 import com.anan.anancooking.model.Step;
 import com.anan.anancooking.client.ui.viewadapters.*;
 import com.android.volley.RequestQueue;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,7 @@ public class RecipeCreationActivity extends Activity
         SaveToServerConfirmDialog.SendToServerConfirmedListener
 {
 
+    private RecipePreviewImplementation rpi=null;
     private ListView listView = null;
     CreateRecipeListViewAdapter adapter = null;
     ArrayList<Step> steps;
@@ -46,7 +50,7 @@ public class RecipeCreationActivity extends Activity
         // catch the RecipePreviewImplementation from previous arcitivty
 
         Intent intent = getIntent();
-        RecipePreviewImplementation rpi = (RecipePreviewImplementation) intent.getSerializableExtra(CreateRecipeBriefDescriptionActivity.PASS_TO_NEXT_STEP);
+        this.rpi = (RecipePreviewImplementation) intent.getSerializableExtra(CreateRecipeBriefDescriptionActivity.PASS_TO_NEXT_STEP);
         //System.out.println(rpi.getTime());
 
 
@@ -180,11 +184,31 @@ public class RecipeCreationActivity extends Activity
     public void confirm() {
         RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
                 getRequestQueue();
-        JSONArray jsArray = new JSONArray(convertList(steps));
-        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
+
+        // setting the step array
+        RecipeImplementation recipe = new RecipeImplementation();
+        recipe.setName(rpi.getName());
+        recipe.setIngredients(rpi.getIngredients());
+        recipe.setTime(rpi.getTime());
+        recipe.setDescription(rpi.getDescription());
+        recipe.setPreviewByteCode(rpi.getPreviewByteCode());
+        recipe.setSteps(steps);
+
+        JSONObject recipeJson = new JSONObject();
+        try {
+            recipeJson.put("recipe", recipe);
+            System.out.println("Json no problem to convert.");
+        }catch(Exception e){
+            e.toString();
+        }
+
+
+        // queue
+        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM,this,recipeJson));
         steps.clear();
         refreshListView();
 
+        // back to main page
         Intent intent = new Intent(this, MainPageActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         startActivity(intent);

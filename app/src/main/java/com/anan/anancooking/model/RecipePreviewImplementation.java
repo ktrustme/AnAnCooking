@@ -9,11 +9,16 @@ import java.io.Serializable;
  * Created by kuoxin on 4/13/15.
  */
 public class RecipePreviewImplementation implements RecipePreviewInterface, Serializable {
-    String name = null;
-    int time = 0;
-    String ingredients = null;
-    byte[] previewByteCode;
+    private String name = null;
+    private int time = 0;
+    private String ingredients = null;
+    private String description = null;
+    private byte[] previewByteCode;
 
+
+    public void setDescription(String des){
+        this.description = des;
+    }
 
     @Override
     public RecipePreviewInterface setName(String name) {
@@ -58,5 +63,7 @@ public class RecipePreviewImplementation implements RecipePreviewInterface, Seri
     public byte[] getPreviewByteCode() {
         return this.previewByteCode;
     }
+
+    public String getDescription(){return this.description;}
 
 }

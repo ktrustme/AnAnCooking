@@ -183,6 +183,7 @@ public class CreateRecipeBriefDescriptionActivity extends Activity implements Se
         rpi.setIngredients(this.ingredients);
         rpi.setTime(this.time);
         rpi.setPreviewByteCode(imageByteArray);
+        rpi.setDescription(description);
         // send the creating rpi to next step and start step-adding activity
         intent.putExtra(this.PASS_TO_NEXT_STEP,rpi);
         startActivity(intent);

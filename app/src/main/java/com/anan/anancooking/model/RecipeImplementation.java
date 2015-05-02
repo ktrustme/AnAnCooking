@@ -16,12 +16,16 @@ import java.util.ArrayList;
  * Created by kuoxin on 4/4/15.
  */
 public class RecipeImplementation implements RecipeInterface, Serializable {
-
+    String recipeName = null;
     String ingredients = null;
     int time = 0;
     String description = null;
     ArrayList<Step> steps = new ArrayList<Step>();
     byte[] previewByteCode;
+
+    public void setName(String name){
+        this.recipeName = name;
+    }
 
     @Override
     public RecipeInterface setSteps(ArrayList<Step> steps) {
