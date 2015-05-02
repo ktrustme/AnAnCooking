@@ -27,6 +27,7 @@ import java.io.InputStream;
 
 public class CreateRecipeBriefDescriptionActivity extends Activity implements SeekBar.OnSeekBarChangeListener{
     private final int SELECT_PHOTO = 4040;
+    public static final String PASS_TO_NEXT_STEP = "pass rpi to next activity";
 
     private EditText t2=null;
     private SeekBar sb=null;
@@ -182,11 +183,8 @@ public class CreateRecipeBriefDescriptionActivity extends Activity implements Se
         rpi.setIngredients(this.ingredients);
         rpi.setTime(this.time);
         rpi.setPreviewByteCode(imageByteArray);
-
-        System.out.println(rpi.getTime());
-
         // send the creating rpi to next step and start step-adding activity
-        intent.putExtra("rpi_to_next_step",rpi);
+        intent.putExtra(this.PASS_TO_NEXT_STEP,rpi);
         startActivity(intent);
     }
 }

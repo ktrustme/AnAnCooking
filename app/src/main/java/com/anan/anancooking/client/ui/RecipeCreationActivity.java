@@ -15,6 +15,7 @@ import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
 import com.anan.anancooking.client.ws.remote.TestVolleyCallbackInterface;
 import com.anan.anancooking.client.ws.remote.UploadRecipeRequest;
 import com.anan.anancooking.model.RecipeCreateListHelper;
+import com.anan.anancooking.model.RecipePreviewImplementation;
 import com.anan.anancooking.model.Step;
 import com.anan.anancooking.client.ui.viewadapters.*;
 import com.android.volley.RequestQueue;
@@ -32,9 +33,6 @@ public class RecipeCreationActivity extends Activity
         SaveToServerConfirmDialog.SendToServerConfirmedListener
 {
 
-    private final int SELECT_PHOTO = 999;
-    private int stepCounter=1;
-    private final static int MAXIMUM_STEP = 20;
     private ListView listView = null;
     CreateRecipeListViewAdapter adapter = null;
     ArrayList<Step> steps;
@@ -43,16 +41,20 @@ public class RecipeCreationActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         RecipeCreateListHelper rclh = new RecipeCreateListHelper();
         steps = rclh.getArrayList();
-
         super.onCreate(savedInstanceState);
 
+        // catch the RecipePreviewImplementation from previous arcitivty
+
+        Intent intent = getIntent();
+        RecipePreviewImplementation rpi = (RecipePreviewImplementation) intent.getSerializableExtra(CreateRecipeBriefDescriptionActivity.PASS_TO_NEXT_STEP);
+        //System.out.println(rpi.getTime());
+
+
+        // setting the list view
         setContentView(R.layout.activity_create_recipe);
-
         this.adapter = new CreateRecipeListViewAdapter(steps, this);
-
         listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
-        //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 
 
