@@ -72,6 +72,11 @@
             android:label="@string/title_activity_test_volley"
             android:theme="@style/CustomMainPageTheme" >
         </activity>
+        <activity
+            android:name=".client.ui.SearchResultActivity"
+            android:label="@string/title_activity_test_volley"
+            android:theme="@style/CustomMainPageTheme" >
+        </activity>
     </application>
 
 </manifest>
