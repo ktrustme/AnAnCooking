@@ -58,6 +58,10 @@
     <string name="report_error_button">Report Error</string>
     <string name="exit_button">Exit</string>
     <string name="title_activity_test_volley">TestVolley</string>
+    <string name="title_activity_search_result">SearchResultActivity</string>
+    <string name="text_history_fragment">Check Your Recipe Warehouse ^_^</string>
+    <string name="list_preview_time">Time</string>
+    <string name="list_preview_time_unit">min</string>
 
 
 </resources>

@@ -8,6 +8,10 @@ import android.graphics.drawable.BitmapDrawable;
 public interface RecipePreviewInterface {
     RecipePreviewInterface setName(String name);
 
+    RecipePreviewInterface setRecipeId(String id);
+
+    String getRecipeId();
+
     RecipePreviewInterface setIngredients(String ingredients);
 
     RecipePreviewInterface setTime(int time);

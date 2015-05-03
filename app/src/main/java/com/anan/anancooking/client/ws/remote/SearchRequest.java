@@ -1,20 +1,13 @@
 package com.anan.anancooking.client.ws.remote;
 
-import android.graphics.BitmapFactory;
-
-import com.anan.anancooking.model.RecipeImplementation;
 import com.anan.anancooking.model.RecipePreviewImplementation;
-import com.anan.anancooking.model.RecipePreviewInterface;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,24 +15,24 @@ import java.util.Map;
 /**
  * Created by kuoxin on 4/13/15.
  */
-public class FetchRecommendastionPreviewsRequest extends JsonArrayRequest{
+public class SearchRequest extends JsonArrayRequest{
 
 
-    public FetchRecommendastionPreviewsRequest(FetchRecommendationPreviewListCallbackInterface callback, String hostname, int port){
+    public SearchRequest(SearchCallbackInterface callback, String hostname, int port, String ingredients){
 
-        super(Method.GET, setURL(hostname, port), null, new FetchRecommendationPreviewListRequestResponseListener(callback), new ResponseErrorListener());
+        super(Method.GET, setURL(hostname, port, ingredients), null, new SearchRequestResponseListener(callback), new ResponseErrorListener());
     }
 
-    private static String setURL(String hostname, int port){
-
-        return "http://"+hostname+":"+port +AnAnNetworkProtocols.WEB_APP_NAME+AnAnNetworkProtocols.URL_PATTERN_FETCH_RECOMMENDATION_LIST;
+    private static String setURL(String hostname, int port, String ingredients){
+        //return "http://"+hostname+":"+port +AnAnNetworkProtocols.WEB_APP_NAME+AnAnNetworkProtocols.URL_PATTERN_FETCH_RECIPE+"?id="+id;
+        return "http://"+hostname+":"+port +AnAnNetworkProtocols.WEB_APP_NAME+AnAnNetworkProtocols.URL_PATTERN_SEARCH+"?ingredients="+ingredients;
     }
 
-    private static class FetchRecommendationPreviewListRequestResponseListener implements Response.Listener<JSONArray> {
+    private static class SearchRequestResponseListener implements Response.Listener<JSONArray> {
 
-        FetchRecommendationPreviewListCallbackInterface callback;
+        SearchCallbackInterface callback;
 
-        public FetchRecommendationPreviewListRequestResponseListener(FetchRecommendationPreviewListCallbackInterface callback){
+        public SearchRequestResponseListener(SearchCallbackInterface callback){
             this.callback = callback;
 
         }
@@ -51,13 +44,11 @@ public class FetchRecommendastionPreviewsRequest extends JsonArrayRequest{
                 //this.callback.setIngredientsText(response.getString("ingredients"));
                 Gson gson = new Gson();
                 //RecipeImplementation recipe = gson.fromJson(response.toString(), RecipeImplementation.class);
-
-                this.callback.setRecommendationPreviewList(
+                this.callback.displayDebug();
+                this.callback.setSearchResultList(
                         (List<RecipePreviewImplementation>) gson.fromJson(response.toString(),
                                 new TypeToken<List<RecipePreviewImplementation>>() {
                                 }.getType() ));
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

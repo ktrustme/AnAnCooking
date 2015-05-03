@@ -12,4 +12,5 @@ public class AnAnNetworkProtocols {
     public static String URL_PATTERN_TEST="/test";
     public static String URL_PATTERN_FETCH_RECIPE_PREVIEW="/fetch_recipe_preview";
     public static String URL_PATTERN_UPLOAD_RECIPE="/upload_recipe";
+    public static String URL_PATTERN_SEARCH="/search";
 }

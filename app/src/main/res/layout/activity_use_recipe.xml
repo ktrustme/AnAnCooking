@@ -13,42 +13,47 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/test_sensor_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_button_height_half"
+            android:background="@drawable/sign_out"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="moveUp"
             android:gravity="center"
-            android:background="@drawable/sign_out">
+            android:onClick="moveUp">
+
             <LinearLayout
                 android:layout_width="40dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_arrow_up">
-                </LinearLayout>
-            </LinearLayout>
+                android:background="@drawable/ic_arrow_up"></LinearLayout>
+        </LinearLayout>
 
         <ListView
             android:id="@+id/listView_steps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_button_height_half"
+            android:background="@drawable/sign_out"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="moveDown"
-            android:background="@drawable/sign_out"
-            android:gravity="center">
+            android:gravity="center"
+            android:onClick="moveDown">
+
             <LinearLayout
                 android:layout_width="40dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_arrow_down">
-            </LinearLayout>
+                android:background="@drawable/ic_arrow_down"></LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

@@ -71,7 +71,8 @@ public class UseRecipeListViewAdapter extends ArrayAdapter<Step> {
         //holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
 
         if(rowItem.getBytes()==null){
-            holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
+            //holder.imageView.setImageResource(R.drawable.ic_menu_rotate);
+            holder.imageView.setVisibility(View.GONE);
         }else{
             holder.imageView.setImageDrawable(ImageByteArrayToDrawableConverter.convert(rowItem.getBytes()));
         }

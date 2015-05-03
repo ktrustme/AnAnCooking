@@ -47,28 +47,22 @@ public class FetchRecipeRequest extends JsonObjectRequest{
                 //this.callback.setIngredientsText(response.getString("ingredients"));
                 Gson gson = new Gson();
                 RecipeImplementation recipe = gson.fromJson(response.toString(), RecipeImplementation.class);
-                this.callback.setIngredientsText("Ingredients?");
+                if(recipe.getDescription().split("19920829kuoxin").length == 2) {
+                    String tmp_ingredients = recipe.getDescription().split("19920829kuoxin")[1];
+                    if(tmp_ingredients.length()>2)
+                        recipe.setIngredients(tmp_ingredients.substring(1,tmp_ingredients.length()-1));
+                    recipe.setDescription(recipe.getDescription().split("19920829kuoxin")[0]);
+                }
+                this.callback.setIngredientsText(recipe.getIngredients());
                 //this.callback.setTimeText(response.getString("time"));
                 this.callback.setTimeText(""+recipe.getTime());
+
+                System.out.println("recipe name is "+ recipe.getName());
                 //this.callback.setDescriptionText(response.getString("description"));
                 this.callback.setDescriptionText(recipe.getDescription());
-                /*
-                String previewByteString = response.getString("previewByteCode");
 
-                String[] byteValues = previewByteString.substring(1, previewByteString.length() - 1).split(",");
-                byte[] previewBytes = new byte[byteValues.length];
-
-                for (int i=0, len=previewBytes.length; i<len; i++) {
-                    previewBytes[i] = Byte.parseByte(byteValues[i].trim());
-                }
-                this.callback.setPreviewImage(BitmapFactory.decodeByteArray(previewBytes,0,previewBytes.length));
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(previewBytes);
-
-                if(BitmapFactory.decodeStream(inputStream)== null){
-                    this.callback.setDescriptionText("It's bad...");
-                    this.callback.setDescriptionText(previewByteString);
-                }*/
                 this.callback.setPreviewImage(BitmapFactory.decodeByteArray(recipe.getPreviewByteCode(),0,recipe.getPreviewByteCode().length));
+
                 this.callback.setRecipe(recipe);
 
             } catch (Exception e) {

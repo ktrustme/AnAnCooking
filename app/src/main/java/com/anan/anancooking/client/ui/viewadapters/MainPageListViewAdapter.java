@@ -13,20 +13,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.model.RecipePreviewImplementation;
 import com.anan.anancooking.model.RecipePreviewInterface;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kuoxin on 4/4/15.
  */
-public class MainPageListViewAdapter extends ArrayAdapter<RecipePreviewInterface> {
+public class MainPageListViewAdapter extends ArrayAdapter<RecipePreviewImplementation> {
 
 
     Context context;
 
     public MainPageListViewAdapter(Context context, int resourceId, //resourceId=your layout
-                                   ArrayList<RecipePreviewInterface> items) {
+                                   List<RecipePreviewImplementation> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -36,6 +38,8 @@ public class MainPageListViewAdapter extends ArrayAdapter<RecipePreviewInterface
         ImageView imageView;
         TextView txtTitle;
         TextView txtDescription;
+        TextView recipeTime;
+        TextView recipeId;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -51,6 +55,9 @@ public class MainPageListViewAdapter extends ArrayAdapter<RecipePreviewInterface
             holder.txtTitle = (TextView) convertView.findViewById(R.id.title_recipe);
             holder.txtDescription = (TextView) convertView.findViewById(R.id.desc_recipe);
             holder.imageView = (ImageView) convertView.findViewById(R.id.icon_recipe);
+            holder.recipeId = (TextView) convertView.findViewById(R.id.hidden_recipe_id);
+            holder.recipeTime = (TextView) convertView.findViewById(R.id.preview_time);
+            //holder.recipeId = (TextView)
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
@@ -59,6 +66,8 @@ public class MainPageListViewAdapter extends ArrayAdapter<RecipePreviewInterface
         //the following line should be performed in a AsynTask
         holder.txtTitle.setText(rowItem.getName());
         holder.txtDescription.setText(rowItem.getIngredients());
+        holder.recipeId.setText(rowItem.getRecipeId());
+        holder.recipeTime.setText(""+rowItem.getTime());
         //set image
         if(rowItem.getPreviewByteCode()==null)
             holder.imageView.setImageResource(R.drawable.ic_menu_rotate);

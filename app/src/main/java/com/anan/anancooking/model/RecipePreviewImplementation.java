@@ -14,11 +14,22 @@ public class RecipePreviewImplementation implements RecipePreviewInterface, Seri
     String ingredients = null;
     byte[] previewByteCode;
 
+    String recipeID = null;
 
     @Override
     public RecipePreviewInterface setName(String name) {
         this.name = name;
         return this;
+    }
+
+    @Override
+    public RecipePreviewInterface setRecipeId(String id) {
+        return this;
+    }
+
+    @Override
+    public String getRecipeId() {
+        return recipeID;
     }
 
     @Override

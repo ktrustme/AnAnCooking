@@ -5,25 +5,34 @@ import com.anan.anancooking.client.ui.listeners.MainPageListViewItemClickListene
 import com.anan.anancooking.client.ui.listeners.MainPageOnFreshListener;
 import com.anan.anancooking.client.ui.viewadapters.*;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.ws.remote.AnAnNetworkProtocols;
+import com.anan.anancooking.client.ws.remote.FetchRecipeRequest;
+import com.anan.anancooking.client.ws.remote.FetchRecommendastionPreviewsRequest;
+import com.anan.anancooking.client.ws.remote.FetchRecommendationPreviewListCallbackInterface;
+import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
+import com.anan.anancooking.model.RecipePreviewImplementation;
 import com.anan.anancooking.model.RecipePreviewInterface;
 import com.anan.anancooking.model.RecipePreviews;
+import com.android.volley.RequestQueue;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendationFragment extends Fragment {
-
+public class RecommendationFragment extends Fragment implements FetchRecommendationPreviewListCallbackInterface {
+    List<RecipePreviewImplementation> recommendationPreviewList = null;
 
     private static final int LIST_ITEM_COUNT = 5;
 
@@ -71,6 +80,8 @@ public class RecommendationFragment extends Fragment {
 
         // Retrieve the ListView
         myListView = (ListView) view.findViewById(R.id.listview_mainpage);
+        //listmyListView.addHeaderView(inflater.inflate(R.layout.recommendation_fragment_header, null));
+
         myListView.setOnItemClickListener(new MainPageListViewItemClickListener(this.getActivity()));
         return view;
     }
@@ -82,11 +93,16 @@ public class RecommendationFragment extends Fragment {
          * Create an ArrayAdapter to contain the data for the ListView. Each item in the ListView
          * uses the system-defined simple_list_item_1 layout that contains one TextView.
          */
+        /*
         this.myListAdapter = new MainPageListViewAdapter(
                 getActivity(),
                 R.layout.list_item_briefintroduction,
                 RecipePreviews.randomList(LIST_ITEM_COUNT));
+        */
 
+        if(recommendationPreviewList == null)
+            recommendationPreviewList = new  ArrayList<RecipePreviewImplementation>();
+        this.myListAdapter = new MainPageListViewAdapter(getActivity(), R.layout.list_item_briefintroduction, recommendationPreviewList);
         // Set the adapter between the ListView and its backing data.
         myListView.setAdapter(myListAdapter);
         //mySwipeRefreshLayout.setOnRefreshListener(new MainPageOnFreshListener(this.getActivity(), myListAdapter));
@@ -98,7 +114,9 @@ public class RecommendationFragment extends Fragment {
             }
         });
 
-        // END_INCLUDE (setup_refreshlistener)
+        mySwipeRefreshLayout.setProgressViewOffset(false, 0,
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
+        initiateRefresh();
     }
 // END_INCLUDE (setup_views)
 
@@ -107,6 +125,32 @@ public class RecommendationFragment extends Fragment {
          * Execute the background task, which uses {@link android.os.AsyncTask} to load the data.
          */
         //new DummyBackgroundTask().execute();
-        new MainPageRecommendationListViewLoader(this.getActivity(), myListAdapter,mySwipeRefreshLayout).execute();
+        //new MainPageRecommendationListViewLoader(this.getActivity(), myListAdapter,mySwipeRefreshLayout).execute();
+        mySwipeRefreshLayout.setRefreshing(true);
+
+        //if(this.recommendationPreviewList == null)
+        sendFetchRecommendationPreviewListRequest();
+    }
+
+    @Override
+    public void setRecommendationPreviewList(List<RecipePreviewImplementation> recommendationPreviewList) {
+        this.recommendationPreviewList.removeAll(this.recommendationPreviewList);
+        this.recommendationPreviewList.addAll(recommendationPreviewList);
+        ((BaseAdapter) myListView.getAdapter()).notifyDataSetChanged();
+
+        mySwipeRefreshLayout.setRefreshing(false);
+    }
+
+
+    public void sendFetchRecommendationPreviewListRequest(){
+        //if(this.recommendationPreviewList == null) {
+            RequestQueue queue = MySingletonRequestQueue.getInstance(getActivity().getApplicationContext()).getRequestQueue();
+            queue.add(new FetchRecommendastionPreviewsRequest(this,
+                    AnAnNetworkProtocols.HOST_NAME, AnAnNetworkProtocols.PORT_NUM));
+        //}
+    }
+
+    public void displayDebug(){
+        Toast.makeText(getActivity(),"done?",Toast.LENGTH_LONG).show();
     }
 }

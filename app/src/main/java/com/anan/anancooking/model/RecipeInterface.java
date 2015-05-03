@@ -16,7 +16,9 @@ public interface RecipeInterface {
     int getTime();
     String getDescription();
     byte[] getPreviewByteCode();
+    String getName();
 
+    RecipeInterface setName(String name);
     RecipeInterface setTime(int time);
     RecipeInterface setIngredients(String ingredients);
     RecipeInterface setDescription(String description);

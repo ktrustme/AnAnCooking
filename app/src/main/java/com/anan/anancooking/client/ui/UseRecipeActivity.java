@@ -1,8 +1,13 @@
 package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -11,38 +16,50 @@ import android.view.View;
 
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.anan.anancooking.R;
-import com.anan.anancooking.client.exception.MyUncaughtExceptionHandler;
-import com.anan.anancooking.client.ui.viewadapters.CustomListViewAdapterUseRecipe;
+
 import com.anan.anancooking.client.ui.viewadapters.UseRecipeListViewAdapter;
+
 import com.anan.anancooking.model.Step;
-import com.anan.anancooking.model.Steps;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 
-public class UseRecipeActivity extends Activity {
+public class UseRecipeActivity extends Activity implements SensorEventListener {
     ListView lv = null;
     ShareActionProvider myShareActionProvider = null;
     List<Step> steps = null;
+    private SensorManager mSensorManager;
+    private Sensor mLight;
+    private TextView testSensorReadingText;
+    private float lightSensorResult=-100;
+    private float initiallightSensorResult=-100;
+    private long previousDarkTime=0;
+    private long previousPreviousDarkTime=5000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         Bundle bn = getIntent().getExtras();
-        this.steps = (List<Step>)bn.getSerializable("recipeSteps");
+        this.steps = (List<Step>) bn.getSerializable("recipeSteps");
         setContentView(R.layout.activity_use_recipe);
         setListView();
+        setSensor();
 
         //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+    }
+
+    private void setSensor() {
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        testSensorReadingText = (TextView) findViewById(R.id.test_sensor_reading);
+
     }
 
     private void setShareIntent(Intent shareIntent) {
@@ -50,58 +67,6 @@ public class UseRecipeActivity extends Activity {
             myShareActionProvider.setShareIntent(shareIntent);
         }
     }
-/*
-    private void setShare() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Test Content Sharing From AnAnCooking");
-        sendIntent.setType("");
-        View view =null;
-        //LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(R.layout.linearlayout,null);
-        //ll.setOrientation(LinearLayout.VERTICAL);
-        //view = lv.getAdapter().getView(3,null,lv);
-        view = findViewById(R.id.recipe_intro_activity);
-        view.setDrawingCacheEnabled(true);
-        Bitmap b = view.getDrawingCache();
-
-        final File dir = new File(Environment.getExternalStorageDirectory(), "/some/location");
-
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        final File img = new File(dir, "TestShareImage" + ".jpg");
-        if (img.exists()) {
-            img.delete();
-        }
-
-        OutputStream outStream = null;
-        try {
-            outStream = new FileOutputStream(img);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        b.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-
-        try {
-            outStream.flush();
-            outStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        sendIntent.putExtra(Intent.EXTRA_STREAM, "Test Content Sharing From AnAnCooking");
-
-        startActivity(sendIntent);
-
-        if (myShareActionProvider != null) {
-            myShareActionProvider.setShareIntent(sendIntent);
-        }
-
-
-    }
-    */
 
     private void setListView() {
 
@@ -163,4 +128,52 @@ public class UseRecipeActivity extends Activity {
         else
             lv.smoothScrollToPositionFromTop(first + 2, -10);
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float lightSensorResult = event.values[0];
+
+        if (initiallightSensorResult<0)
+            initiallightSensorResult=lightSensorResult;
+
+
+        //if right now is dark
+        if(lightSensorResult<5) {
+            //if the previous time slot is light, a dark event is trigered
+            if (this.lightSensorResult>5) {
+
+                long currentDarkTime = System.currentTimeMillis();
+                if(currentDarkTime-this.previousDarkTime>1000){
+                    moveDown(testSensorReadingText);
+                    this.previousDarkTime=currentDarkTime;
+                }else
+                {
+                    this.previousDarkTime=currentDarkTime;
+                    moveUp(testSensorReadingText);
+                }
+
+            }
+        }
+        this.lightSensorResult=lightSensorResult;
+        testSensorReadingText.setText(""+System.currentTimeMillis());
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
 }
