@@ -19,6 +19,7 @@ public interface RecipeInterface {
     String getName();
 
     RecipeInterface setName(String name);
+    RecipeInterface setSteps(ArrayList<Step> steps);
     RecipeInterface setTime(int time);
     RecipeInterface setIngredients(String ingredients);
     RecipeInterface setDescription(String description);
