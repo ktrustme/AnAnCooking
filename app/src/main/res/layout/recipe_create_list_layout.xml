@@ -74,6 +74,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            style="@style/TextBlackSecondary"
+            android:backgroundTint="@color/transparent"
             android:layout_weight="1"
             android:textSize="20dp"
             android:lines="3" />

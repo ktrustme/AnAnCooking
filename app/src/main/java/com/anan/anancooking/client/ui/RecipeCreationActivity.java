@@ -15,11 +15,16 @@ import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
 import com.anan.anancooking.client.ws.remote.TestVolleyCallbackInterface;
 import com.anan.anancooking.client.ws.remote.UploadRecipeRequest;
 import com.anan.anancooking.model.RecipeCreateListHelper;
+import com.anan.anancooking.model.RecipeImplementation;
+import com.anan.anancooking.model.RecipePreviewImplementation;
 import com.anan.anancooking.model.Step;
 import com.anan.anancooking.client.ui.viewadapters.*;
 import com.android.volley.RequestQueue;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -28,12 +33,11 @@ public class RecipeCreationActivity extends Activity
         implements AddStepDialog.OnAddStepConfirmedListener,
         UpdateStepDialog.OnUpdateConfirmedListener,
         InsertionStepDialog.OnInsertionConfirmedListener,
-        TestVolleyCallbackInterface
-                   {
+        TestVolleyCallbackInterface,
+        SaveToServerConfirmDialog.SendToServerConfirmedListener
+{
 
-    private final int SELECT_PHOTO = 999;
-    private int stepCounter=1;
-    private final static int MAXIMUM_STEP = 20;
+    private RecipePreviewImplementation rpi=null;
     private ListView listView = null;
     CreateRecipeListViewAdapter adapter = null;
     ArrayList<Step> steps;
@@ -42,17 +46,20 @@ public class RecipeCreationActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         RecipeCreateListHelper rclh = new RecipeCreateListHelper();
         steps = rclh.getArrayList();
-
         super.onCreate(savedInstanceState);
 
+        // catch the RecipePreviewImplementation from previous arcitivty
+
+        Intent intent = getIntent();
+        this.rpi = (RecipePreviewImplementation) intent.getSerializableExtra(CreateRecipeBriefDescriptionActivity.PASS_TO_NEXT_STEP);
+        //System.out.println(rpi.getTime());
+
+
+        // setting the list view
         setContentView(R.layout.activity_create_recipe);
-
         this.adapter = new CreateRecipeListViewAdapter(steps, this);
-
         listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
-        //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
-
     }
 
 
@@ -85,37 +92,15 @@ public class RecipeCreationActivity extends Activity
     public void openAddDialog(View view){
         DialogFragment newFragment = AddStepDialog.newInstance();
         newFragment.show(getFragmentManager(), "dialog");
-
-
-        /*
-        if(stepCounter<=MAXIMUM_STEP) {
-            //ListViewAdapter adapter = new ListViewAdapter(list, this);
-            ListView listView = (ListView) findViewById(android.R.id.list);
-            Step step = new Step();
-            adapter.getList().add(step);
-            stepCounter++;
-            listView.setAdapter(adapter);
-        }else{
-            StringBuilder sb = new StringBuilder("Over step limit ");
-            sb.append(MAXIMUM_STEP).append(" already.");
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Error").setMessage(sb.toString()).show();
-        }
-        */
-
     }
 
-    public void chooseImage(Step step, int position){
-        /*Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, IMAGE_PICKER_SELECT);
-        */
+ /*   public void chooseImage(Step step, int position){
         Intent intent = new Intent(this, ImagePickerActivity.class);
         startActivityForResult(intent, SELECT_PHOTO);
 
         return;
     }
-
+*/
 
     /*public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == IMAGE_PICKER_SELECT  && resultCode == Activity.RESULT_OK) {
@@ -169,31 +154,75 @@ public class RecipeCreationActivity extends Activity
 
     @Override
     public void insertStep(Step step, int position) {
-        System.out.println("insertStep position = "+position);
+        //System.out.println("insertStep position = "+position);
         steps.add(position+1,step);
         refreshListView();
         return;
     }
 
-    public void sendToServer(View view){
-        RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
-                getRequestQueue();
-        JSONArray jsArray = new JSONArray(convertList(steps));
-        //queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM, jsArray.toString(),this));
-
+    public void sendToServerDialog(View view){
+        //System.out.println(steps);
+        //Bundle args = new Bundle();
+        SaveToServerConfirmDialog saveToServerConfirmDialog = SaveToServerConfirmDialog.newInstance();
+        //saveToServerConfirmDialog.setArguments(args);
+        saveToServerConfirmDialog.show(getFragmentManager(), "save_to_Server_dialog");
     }
-
+/*
     public ArrayList<String> convertList(ArrayList<Step> steps){
         int n = steps.size();
         ArrayList<String> ret = new ArrayList<String>();
         for(int i=0;i<n;i++){
+            steps.get(i).setStepID(i);
             ret.add(i,steps.get(i).toString());
         }
         return ret;
     }
-
+*/
     @Override
     public void setText(String str) {
+        // do nothing
+    }
 
+    @Override
+    public void confirm() {
+        //System.out.println(steps);
+
+        RequestQueue queue = MySingletonRequestQueue.getInstance(this.getApplicationContext()).
+                getRequestQueue();
+
+        // setting the step array
+        RecipeImplementation recipe = new RecipeImplementation();
+        recipe.setName(rpi.getName());
+        recipe.setIngredients(rpi.getIngredients());
+        recipe.setTime(rpi.getTime());
+        recipe.setDescription(rpi.getDescription());
+        recipe.setPreviewByteCode(rpi.getPreviewByteCode());
+        recipe.setSteps(steps);
+
+        /*
+        JSONObject recipeJson = new JSONObject();
+        try {
+            recipeJson.put("recipe", recipe);
+            System.out.println("Json no problem to convert.");
+        }catch(Exception e){
+            e.toString();
+        }*/
+
+        JSONObject recipeJson = new JSONObject();
+        Gson gson = new Gson();
+        try {
+            recipeJson = new JSONObject(gson.toJson(recipe).toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // queue
+        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM,this,recipeJson));
+        steps.clear();
+        refreshListView();
+
+        // back to main page
+        Intent intent = new Intent(this, MainPageActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        startActivity(intent);
     }
 }

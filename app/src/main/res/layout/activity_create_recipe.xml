@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray">
 
     <Button
         android:id="@+id/addBtn"
@@ -18,10 +19,10 @@
 
     <Button
         android:id="@+id/save_recipe_btn"
-        android:text="Save Recipe / No function now"
+        android:text="@string/finish_and_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="sendToServer"
+        android:onClick="sendToServerDialog"
         android:background="@drawable/custom_button"
         android:paddingTop="16dp"
 
@@ -34,6 +35,10 @@
         android:drawSelectorOnTop="true"
         android:paddingTop="16dp"
         android:layout_below="@id/save_recipe_btn"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:dividerHeight="10.0sp"
+        android:background="@color/gray"
         />
 
 </LinearLayout>

@@ -56,6 +56,7 @@
                     android:gravity="top">
 
                     <EditText
+                        android:id="@+id/edit_text_recipe_name"
                         style="@style/TextBlackSecondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -101,6 +102,7 @@
                     android:gravity="top">
 
                     <EditText
+                        android:id="@+id/edit_text_ingredient"
                         style="@style/TextBlackSecondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -143,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal" >
                     <EditText
-                        android:id="@+id/edit_message2"
+                        android:id="@+id/edit_text_time"
                         android:layout_width="0dp"
                         android:inputType="date"
                         android:layout_height="wrap_content"
@@ -204,12 +206,41 @@
                     android:background="@color/primary_color_transparant"
                     android:gravity="top">
                     <EditText
+                        android:id="@+id/edit_text_description"
                         style="@style/TextBlackSecondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/transparent"
                         android:hint="@string/create_recipe_descrption_hint" />
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20dptext_row">
+                <ImageView
+                    android:id="@+id/selected_image_view"
+                    android:layout_gravity="center"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="@dimen/padding_20dptext_row"
+                    />
+                <Button
+                    android:id="@+id/image_pick_btn_in_create_preview"
+                    android:layout_gravity="center"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_image"
+                    android:textColor="@color/text_black"
+                    android:textSize="20dp"
+                    android:background="@color/primary_color"
+                    />
             </LinearLayout>
 
             <LinearLayout

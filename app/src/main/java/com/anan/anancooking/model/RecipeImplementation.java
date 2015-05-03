@@ -16,8 +16,7 @@ import java.util.ArrayList;
  * Created by kuoxin on 4/4/15.
  */
 public class RecipeImplementation implements RecipeInterface, Serializable {
-    String recipeID = null;
-    String recipeName = null;
+
     String ingredients = null;
     int time = 0;
     String description = null;
@@ -26,7 +25,6 @@ public class RecipeImplementation implements RecipeInterface, Serializable {
 
     @Override
     public RecipeInterface setSteps(ArrayList<Step> steps) {
-        this.steps = steps;
         return null;
     }
 
@@ -78,25 +76,6 @@ public class RecipeImplementation implements RecipeInterface, Serializable {
     @Override
     public byte[] getPreviewByteCode() {
         return this.previewByteCode;
-    }
-
-    @Override
-    public String getName() {
-        return recipeName;
-    }
-
-    @Override
-    public RecipeInterface setName(String name) {
-        this.recipeName = name;
-        return null;
-    }
-
-    public String getRecipeID() {
-        return this.recipeID;
-    }
-
-    public void setRecipeID(String recipeID) {
-        this.recipeID = recipeID;
     }
 
 }

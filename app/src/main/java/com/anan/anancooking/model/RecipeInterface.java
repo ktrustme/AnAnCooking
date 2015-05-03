@@ -23,5 +23,5 @@ public interface RecipeInterface {
     RecipeInterface setIngredients(String ingredients);
     RecipeInterface setDescription(String description);
     RecipeInterface setPreviewByteCode(byte[] previewByteCode);
-    RecipeInterface setSteps(ArrayList<Step> steps);
+    //RecipeInterface setSteps(ArrayList<Step> steps);
 }

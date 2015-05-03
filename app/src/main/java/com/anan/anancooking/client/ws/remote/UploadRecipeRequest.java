@@ -7,8 +7,10 @@ package com.anan.anancooking.client.ws.remote;
 import com.android.volley.Request;
         import com.android.volley.Response;
         import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.google.gson.Gson;
 
-        import org.json.JSONObject;
+import org.json.JSONObject;
 
         import java.util.HashMap;
         import java.util.Map;
@@ -18,15 +20,16 @@ import com.android.volley.Request;
  */
 public class UploadRecipeRequest extends JsonObjectRequest {
 
-    public UploadRecipeRequest(String hostname, int port, String id, TestVolleyCallbackInterface callback) {
-        super(Request.Method.GET, setURL(hostname, port, id), null,
+    public UploadRecipeRequest(String hostname, int port, TestVolleyCallbackInterface callback, JSONObject object) {
+        super(Method.POST, setURL(hostname, port), object,
                 new TestRequestResponseListener(callback)
                 , new ResponseErrorListener());
     }
 
-    private static String setURL(String hostname, int port, String id) {
-        System.out.println("http://" + hostname + ":" + port + AnAnNetworkProtocols.WEB_APP_NAME + AnAnNetworkProtocols.URL_PATTERN_TEST + "?id=" + id);
-        return "http://" + hostname + ":" + port + AnAnNetworkProtocols.WEB_APP_NAME + AnAnNetworkProtocols.URL_PATTERN_TEST + "?id=" + id;
+    private static String setURL(String hostname, int port) {
+        //System.out.println("http://" + hostname + ":" + port + AnAnNetworkProtocols.WEB_APP_NAME + AnAnNetworkProtocols.URL_PATTERN_TEST + "?id=3");
+        return "http://" + hostname + ":" + port + AnAnNetworkProtocols.WEB_APP_NAME + AnAnNetworkProtocols.URL_PATTERN_TEST;
+
     }
 
     private static class TestRequestResponseListener implements Response.Listener<JSONObject> {
@@ -46,4 +49,11 @@ public class UploadRecipeRequest extends JsonObjectRequest {
     public Map<String, String> getParams() {
         return new HashMap<String, String>();
     }
+
+    /*
+    @Override
+    public String getBodyContentType() {
+        return postString !=null?"application/json; charset=utf-8":super.getBodyContentType();
+    }
+    */
 }

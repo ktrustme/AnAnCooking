@@ -17,9 +17,9 @@
             android:theme="@style/NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".client.ui.MainPageActivity"
@@ -71,11 +71,6 @@
             android:name=".client.ui.TestVolley"
             android:label="@string/title_activity_test_volley"
             android:theme="@style/CustomMainPageTheme" >
-        </activity>
-        <activity
-            android:name=".client.ui.SearchResultActivity"
-            android:label="@string/title_activity_search_result"
-            android:theme="@style/CustomMainPageTheme">
         </activity>
     </application>
 
