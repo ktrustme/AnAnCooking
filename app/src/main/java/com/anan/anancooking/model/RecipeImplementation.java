@@ -16,12 +16,13 @@ import java.util.ArrayList;
  * Created by kuoxin on 4/4/15.
  */
 public class RecipeImplementation implements RecipeInterface, Serializable {
-
-    String ingredients = null;
-    int time = 0;
-    String description = null;
-    ArrayList<Step> steps = new ArrayList<Step>();
-    byte[] previewByteCode;
+    private String recipeName = null;
+    private String recipeID = null;
+    private String ingredients = null;
+    private int time = 0;
+    private String description = null;
+    private ArrayList<Step> steps = new ArrayList<Step>();
+    private byte[] previewByteCode;
 
     @Override
     public RecipeInterface setSteps(ArrayList<Step> steps) {
@@ -78,4 +79,22 @@ public class RecipeImplementation implements RecipeInterface, Serializable {
         return this.previewByteCode;
     }
 
+    @Override
+    public String getName() {
+        return recipeName;
+    }
+
+    @Override
+    public RecipeInterface setName(String name) {
+        this.recipeName = recipeName;
+        return this;
+    }
+
+    public String getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(String recipeId) {
+        this.recipeID = recipeId;
+    }
 }
