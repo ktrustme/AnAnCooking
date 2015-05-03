@@ -61,7 +61,7 @@ public class AddStepDialog extends DialogFragment implements View.OnClickListene
         (view.findViewById(R.id.save_btn)).setOnClickListener(this);
         imageView = (ImageView) view.findViewById(R.id.selected_image_view);
 
-        Button saveBtn = (Button) view.findViewById(R.id.image_pick_btn_in_add_step);
+        View saveBtn = (View) view.findViewById(R.id.image_pick_btn_in_add_step);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

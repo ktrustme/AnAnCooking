@@ -73,7 +73,7 @@ public class UpdateStepDialog extends DialogFragment implements View.OnClickList
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
         imageView.setImageBitmap(bitmap);
 
-        Button saveBtn = (Button) view.findViewById(R.id.image_pick_btn_in_update_step);
+        View saveBtn = (View) view.findViewById(R.id.image_pick_btn_in_update_step);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

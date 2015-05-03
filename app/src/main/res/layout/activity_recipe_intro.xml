@@ -175,8 +175,8 @@
                 android:padding="@dimen/padding_20dptext_row">
 
                 <Button
-                    style="@style/TextPrimary"
                     android:id="@+id/button_start_use_recipe_activity"
+                    style="@style/TextPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/login_button_height"
                     android:background="@drawable/button_start_steps"
@@ -193,8 +193,8 @@
         android:layout_height="wrap_content"
 
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-         >
+        android:layout_alignParentRight="true">
+
         <Button
             android:id="@+id/button_save_recipe"
             android:layout_width="60dp"
@@ -207,14 +207,13 @@
             android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/button_imageview_save_recipe"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:contentDescription="image"
             android:src="@drawable/ic_action_save"></ImageView>
-
-
     </FrameLayout>
 
 

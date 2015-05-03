@@ -44,15 +44,17 @@
     <string name="title_activity_image_picker">ImagePickerActivity</string>
 
     <!-- Creation Step Part.  2014/04/19 by Siang -->
-    <string name="create_step_add_step">Add Step</string>
+    <string name="create_step_add_step">+</string>
     <string name="create_step_description">Description</string>
-    <string name="create_step_save">Save</string>
-    <string name="create_step_insert_step">Insert</string>
+    <string name="create_step_description_hint">Say something...</string>
+    <string name="create_step_save">Confirm</string>
+    <string name="create_step_insert_step">+</string>
     <string name="create_step_update_position_title">Update step</string>
-    <string name="create_step_insert_position_title">Insert new step after </string>
+    <string name="create_step_insert_position_title">Insert new step after step</string>
     <string name="create_step_update_step">Update</string>
     <string name="create_step_delete_step">Delete</string>
-    <string name="choose_image">Choose Image</string>
+    <string name="choose_image">Pick Preview Image</string>
+    <string name="choose_image2">Pick Image</string>
     <string name="finish_and_save">Finish! Save the Recipe!!</string>
 
 

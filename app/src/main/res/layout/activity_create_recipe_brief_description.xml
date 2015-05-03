@@ -20,11 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical"></LinearLayout>
             <!--name-->
             <LinearLayout
@@ -41,6 +42,7 @@
                     android:gravity="bottom"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/padding_20dptext_row">
+
                     <TextView
                         style="@style/TextRatingBar"
                         android:layout_width="match_parent"
@@ -143,31 +145,34 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
+
                     <EditText
                         android:id="@+id/edit_text_time"
                         android:layout_width="0dp"
-                        android:inputType="date"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:autoText="true"
-                        android:singleLine="true"
                         android:backgroundTint="#3F51B5"
-                        android:layout_weight="1" />
+                        android:inputType="date"
+                        android:singleLine="true" />
+
                     <TextView
                         style="@style/TextBlackSecondary"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        android:text="mins"/>
+                        android:text="mins" />
+
                     <SeekBar
                         android:id="@+id/seekBar1"
                         android:layout_width="220dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_marginRight="5dp"
-                        android:max="1000"/>
+                        android:layout_marginTop="5dp"
+                        android:max="1000" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -200,11 +205,13 @@
                         android:textSize="20dp"
                         android:textStyle="normal" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/primary_color_transparant"
                     android:gravity="top">
+
                     <EditText
                         android:id="@+id/edit_text_description"
                         style="@style/TextBlackSecondary"
@@ -223,24 +230,32 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_20dptext_row">
+
                 <ImageView
                     android:id="@+id/selected_image_view"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:layout_gravity="center"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:src="@drawable/ic_launcher"
                     android:padding="@dimen/padding_20dptext_row"
-                    />
-                <Button
-                    android:id="@+id/image_pick_btn_in_create_preview"
-                    android:layout_gravity="center"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/choose_image"
-                    android:textColor="@color/text_black"
-                    android:textSize="20dp"
-                    android:background="@color/primary_color"
-                    />
+                    android:src="@drawable/ic_action_picture" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right">
+
+                    <Button
+                        android:id="@+id/image_pick_btn_in_create_preview"
+                        style="@style/TextWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_choose_image"
+                        android:layout_marginRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/choose_image" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

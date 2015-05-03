@@ -73,7 +73,6 @@ public class RecipeCreationActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,6 +140,7 @@ public class RecipeCreationActivity extends Activity
         steps.add(step);
         refreshListView();
         listView.setSelection(listView.getAdapter().getCount() - 1);
+        setAddButton();
         return;
     }
 
@@ -148,6 +148,7 @@ public class RecipeCreationActivity extends Activity
     public void updateStep(Step step, int position) {
         steps.set(position,step);
         refreshListView();
+
         return;
     }
 
@@ -157,6 +158,7 @@ public class RecipeCreationActivity extends Activity
         //System.out.println("insertStep position = "+position);
         steps.add(position+1,step);
         refreshListView();
+        setAddButton();
         return;
     }
 
@@ -224,5 +226,12 @@ public class RecipeCreationActivity extends Activity
         Intent intent = new Intent(this, MainPageActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         startActivity(intent);
+    }
+
+    public void setAddButton(){
+        if(listView.getCount()>0)
+            findViewById(R.id.addBtn).setVisibility(View.INVISIBLE);
+        else
+            findViewById(R.id.addBtn).setVisibility(View.VISIBLE);
     }
 }

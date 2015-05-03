@@ -67,7 +67,7 @@ public class InsertionStepDialog extends DialogFragment implements View.OnClickL
         insertPosition.setText(position+"");
         imageView = (ImageView) view.findViewById(R.id.selected_image_view);
 
-        Button saveBtn = (Button) view.findViewById(R.id.image_pick_btn_in_insert_step);
+        View saveBtn = (View) view.findViewById(R.id.image_pick_btn_in_insert_step);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

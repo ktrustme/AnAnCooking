@@ -82,18 +82,20 @@ public class CreateRecipeListViewAdapter extends BaseAdapter implements ListAdap
         }
 
         //Handle buttons and add onClickListeners
-        Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
+        TextView deleteBtn = (TextView) view.findViewById(R.id.delete_btn);
         Button insertBtn = (Button) view.findViewById(R.id.save_recipe_btn);
         //Button imgPickBtn = (Button) view.findViewById(R.id.image_pick_btn);
-        Button updateStep = (Button) view.findViewById(R.id.update_btn);
+        View updateStep = (View) view.findViewById(R.id.update_btn);
 
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 list.remove(position);
                 //descriptionList.remove(position);
                 notifyDataSetChanged();
+                ((RecipeCreationActivity) context).setAddButton();
             }
         });
 

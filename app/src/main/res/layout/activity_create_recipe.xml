@@ -1,44 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray">
+    >
 
-    <Button
-        android:id="@+id/addBtn"
-        android:text="@string/create_step_add_step"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:dividerHeight="10.0sp"
+            android:drawSelectorOnTop="true" />
+        <Button
+            android:id="@+id/addBtn"
+            style="@style/TextBlackSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sign_out"
+            android:onClick="openAddDialog"
+            android:paddingTop="10dp"
+            android:textSize="40dp"
+            android:text="@string/create_step_add_step" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="openAddDialog"
-        android:background="@drawable/custom_button"
-        android:paddingTop="16dp"
-        android:layout_below="@android:id/list"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
 
-    <Button
-        android:id="@+id/save_recipe_btn"
-        android:text="@string/finish_and_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="sendToServerDialog"
-        android:background="@drawable/custom_button"
-        android:paddingTop="16dp"
+        <Button
+            android:id="@+id/save_recipe_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_create_recipe"
+            android:onClick="sendToServerDialog"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
-        />
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:drawSelectorOnTop="true"
-        android:paddingTop="16dp"
-        android:layout_below="@id/save_recipe_btn"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:dividerHeight="10.0sp"
-        android:background="@color/gray"
-        />
-
-</LinearLayout>
+        <ImageView
+            android:id="@+id/button_imageview_save_recipe"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_action_upload"></ImageView>
+    </FrameLayout>
+</RelativeLayout>

@@ -75,7 +75,7 @@ public class CreateRecipeBriefDescriptionActivity extends Activity implements Se
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe_brief_description);
         setSeekBar();
-        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+        //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
 
         Button saveBtn = (Button) findViewById(R.id.image_pick_btn_in_create_preview);
         saveBtn.setOnClickListener(new View.OnClickListener() {
