@@ -1,6 +1,7 @@
 package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,8 +9,10 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.view.View;
 import android.app.*;
+import android.widget.Toast;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.util.DbUtil;
 import com.anan.anancooking.client.ws.remote.AnAnNetworkProtocols;
 import com.anan.anancooking.client.ws.remote.MySingletonRequestQueue;
 import com.anan.anancooking.client.ws.remote.TestVolleyCallbackInterface;
@@ -27,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RecipeCreationActivity extends Activity
@@ -34,10 +38,9 @@ public class RecipeCreationActivity extends Activity
         UpdateStepDialog.OnUpdateConfirmedListener,
         InsertionStepDialog.OnInsertionConfirmedListener,
         TestVolleyCallbackInterface,
-        SaveToServerConfirmDialog.SendToServerConfirmedListener
-{
+        SaveToServerConfirmDialog.SendToServerConfirmedListener {
 
-    private RecipePreviewImplementation rpi=null;
+    public static RecipePreviewImplementation rpi = null;
     private ListView listView = null;
     CreateRecipeListViewAdapter adapter = null;
     ArrayList<Step> steps;
@@ -49,17 +52,16 @@ public class RecipeCreationActivity extends Activity
         super.onCreate(savedInstanceState);
 
         // catch the RecipePreviewImplementation from previous arcitivty
-
         Intent intent = getIntent();
-        this.rpi = (RecipePreviewImplementation) intent.getSerializableExtra(CreateRecipeBriefDescriptionActivity.PASS_TO_NEXT_STEP);
-        //System.out.println(rpi.getTime());
-
-
+        Bundle bn = getIntent().getExtras();
+        if(this.rpi == null)
+            this.rpi = (RecipePreviewImplementation) bn.getSerializable("recipe");
         // setting the list view
         setContentView(R.layout.activity_create_recipe);
         this.adapter = new CreateRecipeListViewAdapter(steps, this);
         listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
+        setAddButton();
     }
 
 
@@ -77,54 +79,37 @@ public class RecipeCreationActivity extends Activity
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
     }
 
 
-
-    public void openAddDialog(View view){
+    public void openAddDialog(View view) {
         DialogFragment newFragment = AddStepDialog.newInstance();
         newFragment.show(getFragmentManager(), "dialog");
     }
-
- /*   public void chooseImage(Step step, int position){
-        Intent intent = new Intent(this, ImagePickerActivity.class);
-        startActivityForResult(intent, SELECT_PHOTO);
-
-        return;
-    }
-*/
-
-    /*public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == IMAGE_PICKER_SELECT  && resultCode == Activity.RESULT_OK) {
-            RecipeCreationActivity activity = (RecipeCreationActivity)getActivity();
-            Bitmap bitmap = getBitmapFromCameraData(data, activity);
-            mSelectedImage.setImageBitmap(bitmap);
-      }
-    }*/
 
     public void openUpdateStepDialog(Step step, int position) {
         Bundle args = new Bundle();
 
         // pass the argument from the stored step list
         args.putString("edit_text_update_description", step.getDescription());
-        args.putByteArray("image_view",step.getBytes());
+        args.putByteArray("image_view", step.getBytes());
 
-        args.putString("text_view_update_step_position",position+"");
-        UpdateStepDialog updateStepDialog = UpdateStepDialog.newInstance(step.getDescription(),position,step.getBytes());
+        args.putString("text_view_update_step_position", position + "");
+        UpdateStepDialog updateStepDialog = UpdateStepDialog.newInstance(step.getDescription(), position, step.getBytes());
         updateStepDialog.setArguments(args);
         updateStepDialog.show(getFragmentManager(), "update_dialog");
     }
 
-    public void openInsertionStepDialog(Step step, int position){
+    public void openInsertionStepDialog(Step step, int position) {
         Bundle args = new Bundle();
-        args.putString("text_view_insert_position", position+"" );
+        args.putString("text_view_insert_position", position + "");
         InsertionStepDialog insertionStepDialog = InsertionStepDialog.newInstance(position);
         insertionStepDialog.setArguments(args);
         insertionStepDialog.show(getFragmentManager(), "update_dialog");
@@ -146,7 +131,7 @@ public class RecipeCreationActivity extends Activity
 
 
     public void updateStep(Step step, int position) {
-        steps.set(position,step);
+        steps.set(position, step);
         refreshListView();
 
         return;
@@ -156,30 +141,22 @@ public class RecipeCreationActivity extends Activity
     @Override
     public void insertStep(Step step, int position) {
         //System.out.println("insertStep position = "+position);
-        steps.add(position+1,step);
+        steps.add(position + 1, step);
         refreshListView();
         setAddButton();
         return;
     }
 
-    public void sendToServerDialog(View view){
+    public void sendToServerDialog(View view) {
         //System.out.println(steps);
         //Bundle args = new Bundle();
         SaveToServerConfirmDialog saveToServerConfirmDialog = SaveToServerConfirmDialog.newInstance();
         //saveToServerConfirmDialog.setArguments(args);
         saveToServerConfirmDialog.show(getFragmentManager(), "save_to_Server_dialog");
+
     }
-/*
-    public ArrayList<String> convertList(ArrayList<Step> steps){
-        int n = steps.size();
-        ArrayList<String> ret = new ArrayList<String>();
-        for(int i=0;i<n;i++){
-            steps.get(i).setStepID(i);
-            ret.add(i,steps.get(i).toString());
-        }
-        return ret;
-    }
-*/
+
+
     @Override
     public void setText(String str) {
         // do nothing
@@ -201,15 +178,6 @@ public class RecipeCreationActivity extends Activity
         recipe.setPreviewByteCode(rpi.getPreviewByteCode());
         recipe.setSteps(steps);
 
-        /*
-        JSONObject recipeJson = new JSONObject();
-        try {
-            recipeJson.put("recipe", recipe);
-            System.out.println("Json no problem to convert.");
-        }catch(Exception e){
-            e.toString();
-        }*/
-
         JSONObject recipeJson = new JSONObject();
         Gson gson = new Gson();
         try {
@@ -218,20 +186,39 @@ public class RecipeCreationActivity extends Activity
             e.printStackTrace();
         }
         // queue
-        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME,AnAnNetworkProtocols.PORT_NUM,this,recipeJson));
+        queue.add(new UploadRecipeRequest(AnAnNetworkProtocols.HOST_NAME, AnAnNetworkProtocols.PORT_NUM, this, recipeJson));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Successfully Uploaded!");
+        builder.setMessage("Enjoy! ^_^");
+        AlertDialog successfullyUploadedDialog = builder.create();
+        successfullyUploadedDialog.setOnCancelListener(new CustomOnCancelListener(this));
+        successfullyUploadedDialog.show();
+
         steps.clear();
         refreshListView();
-
         // back to main page
-        Intent intent = new Intent(this, MainPageActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-        startActivity(intent);
+
     }
 
-    public void setAddButton(){
-        if(listView.getCount()>0)
+    public void setAddButton() {
+        if (listView.getCount() > 0)
             findViewById(R.id.addBtn).setVisibility(View.INVISIBLE);
         else
             findViewById(R.id.addBtn).setVisibility(View.VISIBLE);
+    }
+
+    private class CustomOnCancelListener implements DialogInterface.OnCancelListener{
+
+        Activity parentActivity=null;
+        public CustomOnCancelListener(Activity parentActivity){
+            this.parentActivity = parentActivity;
+        }
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            Intent intent = new Intent(parentActivity, MainPageActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+            startActivity(intent);
+        }
     }
 }

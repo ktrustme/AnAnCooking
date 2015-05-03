@@ -4,6 +4,10 @@
  * Created by kuoxin on 4/13/15.
  */
 package com.anan.anancooking.client.ws.remote;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.android.volley.Request;
         import com.android.volley.Response;
         import com.android.volley.toolbox.JsonObjectRequest;

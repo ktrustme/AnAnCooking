@@ -69,6 +69,8 @@ public class DbUtil {
                     StorageSchema.DataEntry.TABLE_NAME2,
                     "NOTHING_HERE",
                     values);
+
+            System.out.println("add step into db");
         }
 
 

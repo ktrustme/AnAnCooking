@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.ui.AddStepDialog;
@@ -50,12 +51,12 @@ public class SaveToServerConfirmDialog extends DialogFragment implements View.On
         Bundle args = getArguments();
         Button yesBtn = (Button) view.findViewById(R.id.confrim_yes_btn);
         Button noBtn = (Button) view.findViewById(R.id.confrim_no_btn);
-
+        final Activity parentActivity = getActivity();
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCallback.confirm();
-                getDialog().dismiss();
+                getDialog().cancel();
             }
         });
 

@@ -1,14 +1,19 @@
 package com.anan.anancooking.client.ui;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.anan.anancooking.R;
 import com.anan.anancooking.client.ui.customLayout.SlidingTabLayout;
@@ -21,10 +26,11 @@ import com.anan.anancooking.client.ui.viewadapters.MainPagerAdapter;
  * Created by kuoxin on 4/3/15.
  */
 public class MainPageActivity extends FragmentActivity {
-    MainPagerAdapter fpa = null;
-    ViewPager mViewPager = null;
-    Button createRecipeButton = null;
-    SlidingTabLayout mSlidingTabLayout = null;
+    private boolean doubleBackToExitPressedOnce = false;
+    private MainPagerAdapter fpa = null;
+    private ViewPager mViewPager = null;
+    private Button createRecipeButton = null;
+    private SlidingTabLayout mSlidingTabLayout = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,4 +113,31 @@ public class MainPageActivity extends FragmentActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         startActivity(intent);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            quit();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
+    private void quit(){
+        Intent intent = new Intent(getApplicationContext(), LogActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
+    }
+
 }

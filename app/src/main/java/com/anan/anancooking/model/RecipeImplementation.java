@@ -26,6 +26,7 @@ public class RecipeImplementation implements RecipeInterface, Serializable {
 
     @Override
     public RecipeInterface setSteps(ArrayList<Step> steps) {
+        this.steps = steps;
         return null;
     }
 
@@ -85,7 +86,7 @@ public class RecipeImplementation implements RecipeInterface, Serializable {
     }
 
     @Override
-    public RecipeInterface setName(String name) {
+    public RecipeInterface setName(String recipeName) {
         this.recipeName = recipeName;
         return this;
     }

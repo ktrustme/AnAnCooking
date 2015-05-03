@@ -32,6 +32,8 @@ public class LogActivity extends Activity {
         setStatusBar();
         setProgressCircle();
         setButton();
+        if(getIntent().getFlags()==Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            finish();
         //Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
     }
 

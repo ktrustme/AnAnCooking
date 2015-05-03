@@ -62,7 +62,8 @@ public class RecipeIntroActivity extends Activity implements FetchRecipeRequestC
             this.recipe = (RecipeImplementation) bn.getSerializable("recipe");
             setTimeText("" + recipe.getTime());
             setDescriptionText(recipe.getDescription());
-            setPreviewImage(BitmapFactory.decodeByteArray(recipe.getPreviewByteCode(), 0, recipe.getPreviewByteCode().length));
+            if(recipe.getPreviewByteCode()!=null)
+                setPreviewImage(BitmapFactory.decodeByteArray(recipe.getPreviewByteCode(), 0, recipe.getPreviewByteCode().length));
             setIngredientsText(recipe.getIngredients());
             System.out.println("Recipe step length is " + recipe.getSteps().size());
         }
@@ -144,11 +145,10 @@ public class RecipeIntroActivity extends Activity implements FetchRecipeRequestC
     }
 
     public void startSteps(View view) {
-        Bundle b = new Bundle();
-        b.putSerializable("recipeSteps", this.recipe.getSteps());
+        UseRecipeActivity.steps = this.recipe.getSteps();
+
         Intent intent = new Intent(this, com.anan.anancooking.client.ui.UseRecipeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-        intent.putExtras(b);
+
         startActivity(intent);
     }
 

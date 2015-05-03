@@ -18,7 +18,7 @@ package com.anan.anancooking.client.exception;
 public enum MyExceptionEnum implements ExceptionEnumInterface{
 	EMPTY_INPUT(1, ">_< Input cannot be empty."),
 	NO_DISK_SPACE(2, "X_X Opps! No enough disk space!"),
-    NETWORK_DISCONNECTION(3, "X_X No network connection. Please check your setting.");
+    NETWORK_DISCONNECTION(3, "X_X No network connection.\nPlease check your setting.");
 	
 	
 	public int code;

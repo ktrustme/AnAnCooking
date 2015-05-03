@@ -1,10 +1,16 @@
 package com.anan.anancooking.client.ui;
 
+import com.anan.anancooking.client.exception.MyExceptionEnum;
+import com.anan.anancooking.client.exception.ServiceException;
 import com.anan.anancooking.client.ui.contentloader.MainPageRecommendationListViewLoader;
 import com.anan.anancooking.client.ui.listeners.MainPageListViewItemClickListener;
 import com.anan.anancooking.client.ui.listeners.MainPageOnFreshListener;
 import com.anan.anancooking.client.ui.viewadapters.*;
 
+import android.app.Service;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -100,8 +106,8 @@ public class RecommendationFragment extends Fragment implements FetchRecommendat
                 RecipePreviews.randomList(LIST_ITEM_COUNT));
         */
 
-        if(recommendationPreviewList == null)
-            recommendationPreviewList = new  ArrayList<RecipePreviewImplementation>();
+        if (recommendationPreviewList == null)
+            recommendationPreviewList = new ArrayList<RecipePreviewImplementation>();
         this.myListAdapter = new MainPageListViewAdapter(getActivity(), R.layout.list_item_briefintroduction, recommendationPreviewList);
         // Set the adapter between the ListView and its backing data.
         myListView.setAdapter(myListAdapter);
@@ -117,6 +123,7 @@ public class RecommendationFragment extends Fragment implements FetchRecommendat
         mySwipeRefreshLayout.setProgressViewOffset(false, 0,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
         initiateRefresh();
+
     }
 // END_INCLUDE (setup_views)
 
@@ -126,10 +133,15 @@ public class RecommendationFragment extends Fragment implements FetchRecommendat
          */
         //new DummyBackgroundTask().execute();
         //new MainPageRecommendationListViewLoader(this.getActivity(), myListAdapter,mySwipeRefreshLayout).execute();
-        mySwipeRefreshLayout.setRefreshing(true);
+        try {
 
-        //if(this.recommendationPreviewList == null)
-        sendFetchRecommendationPreviewListRequest();
+            mySwipeRefreshLayout.setRefreshing(true);
+            //if(this.recommendationPreviewList == null)
+            sendFetchRecommendationPreviewListRequest();
+        } catch (ServiceException e) {
+            mySwipeRefreshLayout.setRefreshing(false);
+            e.fix(this.getActivity());
+        }
     }
 
     @Override
@@ -142,15 +154,26 @@ public class RecommendationFragment extends Fragment implements FetchRecommendat
     }
 
 
-    public void sendFetchRecommendationPreviewListRequest(){
+    public void sendFetchRecommendationPreviewListRequest() throws ServiceException{
         //if(this.recommendationPreviewList == null) {
-            RequestQueue queue = MySingletonRequestQueue.getInstance(getActivity().getApplicationContext()).getRequestQueue();
-            queue.add(new FetchRecommendastionPreviewsRequest(this,
-                    AnAnNetworkProtocols.HOST_NAME, AnAnNetworkProtocols.PORT_NUM));
+        if (!isNetworkAvailable()){
+            throw new ServiceException(MyExceptionEnum.NETWORK_DISCONNECTION);
+        }
+        RequestQueue queue = MySingletonRequestQueue.getInstance(getActivity().getApplicationContext()).getRequestQueue();
+        queue.add(new FetchRecommendastionPreviewsRequest(this,
+                AnAnNetworkProtocols.HOST_NAME, AnAnNetworkProtocols.PORT_NUM));
         //}
     }
 
-    public void displayDebug(){
-        Toast.makeText(getActivity(),"done?",Toast.LENGTH_LONG).show();
+    public void displayDebug() {
+        Toast.makeText(getActivity(), "done?", Toast.LENGTH_LONG).show();
+    }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

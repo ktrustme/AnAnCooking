@@ -13,7 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
     private static final String REAL_TYPE = " REAL";
-    private static final String BLOB_TYPE = " MEDIUMBLOB";
+    private static final String BLOB_TYPE = " LONGBLOB";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + StorageSchema.DataEntry.TABLE_NAME + " (" +
@@ -40,7 +40,7 @@ public class DbHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + StorageSchema.DataEntry.TABLE_NAME2;
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "LOCAL_RECIPE.db";
 
     public DbHelper(Context context) {

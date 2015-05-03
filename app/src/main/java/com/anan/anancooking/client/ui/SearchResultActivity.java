@@ -1,6 +1,9 @@
 package com.anan.anancooking.client.ui;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
@@ -11,6 +14,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.anan.anancooking.R;
+import com.anan.anancooking.client.exception.MyExceptionEnum;
+import com.anan.anancooking.client.exception.ServiceException;
 import com.anan.anancooking.client.ui.listeners.MainPageListViewItemClickListener;
 import com.anan.anancooking.client.ui.viewadapters.MainPageListViewAdapter;
 import com.anan.anancooking.client.ws.remote.AnAnNetworkProtocols;
@@ -37,7 +42,12 @@ public class SearchResultActivity extends Activity implements SearchCallbackInte
         Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
         String ingredients = getIntent().getStringExtra("ingredients");
         setListView();
-        sendSearchRequest(ingredients);
+
+        try {
+            sendSearchRequest(ingredients);
+        }catch (ServiceException e){
+            e.fix(this);
+        }
 
     }
 
@@ -75,7 +85,10 @@ public class SearchResultActivity extends Activity implements SearchCallbackInte
         return super.onOptionsItemSelected(item);
     }
 
-    private void sendSearchRequest(String ingredients) {
+    private void sendSearchRequest(String ingredients) throws ServiceException {
+        if(!isNetworkAvailable())
+            throw new ServiceException(MyExceptionEnum.NETWORK_DISCONNECTION);
+
         Toast.makeText(this, "Call send search request...", Toast.LENGTH_SHORT).show();
         RequestQueue queue = MySingletonRequestQueue.getInstance(getApplicationContext()).getRequestQueue();
         queue.add(new SearchRequest(this, AnAnNetworkProtocols.HOST_NAME, AnAnNetworkProtocols.PORT_NUM, ingredients));
@@ -93,4 +106,12 @@ public class SearchResultActivity extends Activity implements SearchCallbackInte
     public void displayDebug() {
         Toast.makeText(this, "For debugging...", Toast.LENGTH_SHORT).show();
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }

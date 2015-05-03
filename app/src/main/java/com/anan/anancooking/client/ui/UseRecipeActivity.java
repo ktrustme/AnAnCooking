@@ -3,17 +3,14 @@ package com.anan.anancooking.client.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
@@ -31,23 +28,26 @@ import java.util.List;
 
 
 public class UseRecipeActivity extends Activity implements SensorEventListener {
-    ListView lv = null;
-    ShareActionProvider myShareActionProvider = null;
-    List<Step> steps = null;
+    private long previousWaveTime = 0;
+    private long waveTime = 0;
+    private boolean sensorEnabled = false;
+    private ListView lv = null;
+    private ShareActionProvider myShareActionProvider = null;
+    public static List<Step> steps = null;
     private SensorManager mSensorManager;
     private Sensor mLight;
     private TextView testSensorReadingText;
-    private float lightSensorResult=-100;
-    private float initiallightSensorResult=-100;
-    private long previousDarkTime=0;
-    private long previousPreviousDarkTime=5000;
+    private float lightSensorResult = -100;
+    private float initiallightSensorResult = -100;
+    private long previousDarkTime = 0;
+    private long previousPreviousDarkTime = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         Bundle bn = getIntent().getExtras();
-        this.steps = (List<Step>) bn.getSerializable("recipeSteps");
+        if (this.steps == null)
+            this.steps = (List<Step>) bn.getSerializable("recipeSteps");
         setContentView(R.layout.activity_use_recipe);
         setListView();
         setSensor();
@@ -59,7 +59,6 @@ public class UseRecipeActivity extends Activity implements SensorEventListener {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         testSensorReadingText = (TextView) findViewById(R.id.test_sensor_reading);
-
     }
 
     private void setShareIntent(Intent shareIntent) {
@@ -131,19 +130,45 @@ public class UseRecipeActivity extends Activity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        // lightSensorResult is the light state
+        // if it is light: the number is rouhgly 200
+        //  otherwise, it will be like 100
         float lightSensorResult = event.values[0];
+        /*for(int i=0;i<event.values.length;i++){
+            System.out.println("Even.values [" + i + "] is " + event.values[i] );
+        }*/
+        //System.out.println("Light result is " + lightSensorResult);
+        //System.out.println("Time is " +System.currentTimeMillis());
 
-        if (initiallightSensorResult<0)
-            initiallightSensorResult=lightSensorResult;
+        if (initiallightSensorResult < 0)
+            initiallightSensorResult = lightSensorResult;
 
+        System.out.println("wave time is " + waveTime);
+        System.out.println("previous wave time is " + previousWaveTime);
+
+        if (lightSensorResult < 30) {  // dark --> wave once
+            waveTime = System.currentTimeMillis();
+            if ((waveTime - previousWaveTime) > 500) {
+                moveDown(testSensorReadingText);
+
+                previousWaveTime = waveTime;
+            } else {
+                moveUp(testSensorReadingText);
+
+                previousWaveTime = waveTime;
+            }
+        }
 
         //if right now is dark
+
+        /*
         if(lightSensorResult<5) {
-            //if the previous time slot is light, a dark event is trigered
+            //if the previous time slot is light, a dark event is triggered
             if (this.lightSensorResult>5) {
 
                 long currentDarkTime = System.currentTimeMillis();
-                if(currentDarkTime-this.previousDarkTime>1000){
+
+                if(currentDarkTime-this.previousDarkTime>10000){
                     moveDown(testSensorReadingText);
                     this.previousDarkTime=currentDarkTime;
                 }else
@@ -154,9 +179,10 @@ public class UseRecipeActivity extends Activity implements SensorEventListener {
 
             }
         }
+
         this.lightSensorResult=lightSensorResult;
         testSensorReadingText.setText(""+System.currentTimeMillis());
-
+        */
     }
 
     @Override
@@ -167,13 +193,27 @@ public class UseRecipeActivity extends Activity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+        //mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
+    }
+
+    public void enableGesture(View view) {
+
+        if (sensorEnabled) {
+            mSensorManager.unregisterListener(this, mLight);
+            sensorEnabled = false;
+            Toast.makeText(this, "Hand Controlling Mode Disabled.", Toast.LENGTH_SHORT).show();
+        } else {
+            sensorEnabled = true;
+            mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+            Toast.makeText(this, "Hand Controlling Mode Enabled.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

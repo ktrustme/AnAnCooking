@@ -68,6 +68,8 @@
     <string name="text_history_fragment">Check Your Recipe Warehouse ^_^</string>
     <string name="list_preview_time">Time</string>
     <string name="list_preview_time_unit">min</string>
+    <string name="ok_message">OK</string>
+    <string name="title_search_activity">SearchResult</string>
 
 
 </resources>
